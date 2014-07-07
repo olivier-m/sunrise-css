@@ -1,0 +1,69 @@
+// Colors
+color_base    ?= #222
+color_base_bg ?= #fff
+
+color_gray         ?= #877c6f
+color_gray_dark    ?= darken(color_gray, 31.5%)
+color_gray_darker  ?= darken(color_gray, 63.5%)
+color_gray_light   ?= lighten(color_gray, 41.5%)
+color_gray_lighter ?= lighten(color_gray, 86%)
+
+color_primary ?= #246db1
+color_success ?= #408140
+color_info    ?= #2e9ebf
+color_warning ?= #eca345
+color_danger  ?= #c9382a
+
+color_link       ?= color_primary
+color_link_hover ?= darken(color_link, 35%)
+
+// Fonts and vertical distribution
+base_font_size  ?= 14px
+line_height     ?= 1.5
+
+heading_conf := {
+    h1: {
+        font-size: 3.4rem,
+        font-weight: bold,
+        _margin: 2 0 1 0
+    },
+    h2: {
+        font-size: 2.4rem,
+        font-weight: bold,
+        _margin: 2 0 1 0
+    },
+    h3: {
+        font-size: 2.2rem,
+        _margin: 1 0 1 0
+    },
+    h4: {
+        font-size: 1.8rem,
+        _margin: 1 0 0 0
+    }
+    h5: {
+        font-size: 1.6rem,
+        _margin: 1 0 0 0
+    },
+    h6: {
+        font-size: 1.4rem,
+        _margin: 1 0 0 0
+    }
+}
+
+
+font_stack_common    ?= "Helvetica Neue", Helvetica, Arial, sans-serif
+font_stack_monospace ?= Consolas,Menlo, "DejaVu Sans Mono", Courier, monospace
+
+
+// Grid
+grid_columns        ?= 12
+division_columns    ?= grid_columns
+distributed_columns ?= grid_columns
+grid_gutter_width   ?= unit(floor(line_height * base_font_size / 10 / 2) * 2, rem)
+
+
+// Device sizes and media queries
+screen_xs ?= unit(560  / 16, em)  // mobile
+screen_sm ?= unit(768  / 16, em)  // tablet
+screen_md ?= unit(992  / 16, em)  // desktop
+screen_lg ?= unit(1200 / 16, em)  // wide screen

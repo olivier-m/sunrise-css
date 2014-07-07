@@ -1,0 +1,24 @@
+contrasted(color, t=#fff, b=#000)
+    ct = contrast(t, color)
+    cb = contrast(b, color)
+    if (ct.ratio > cb.ratio)
+        return t
+    return b
+
+color_fg(color)
+    color: color;
+
+color_bg(color)
+    background-color color
+    color contrasted(color)
+
+fade(color, value)
+    return rgba(color, value)
+
+gradient(origin=top, start=#fff, stop=#000)
+    background-color start
+    background-image -webkit-linear-gradient(origin, start, stop)
+    background-image -moz-linear-gradient(origin, start, stop)
+    background-image -o-linear-gradient(origin, start, stop)
+    background-image -ms-linear-gradient(origin, start, stop)
+    background-image linear-gradient(origin, start, stop)

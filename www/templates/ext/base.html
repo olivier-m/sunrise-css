@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta charset="UTF-8" />
+  <title>{% block page_title %}Sunrise{% endblock page_title %}</title>
+  {% block viewport %}<meta name="viewport" content="width=device-width, initial-scale=1.0" />{% endblock viewport %}
+
+  {% block stylesheets %}
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+  <link rel="stylesheet" href="{{ root_url }}css/sunrise.css" />
+  <link rel="stylesheet" href="{{ root_url }}css/docs.css" />
+  {% endblock stylesheets %}
+
+  <script src="{{ root_url }}js/jquery.min.js"></script>
+  <script src="{{ root_url }}js/script.js"></script>
+  {% endblock head %}
+</head>
+
+<body>
+{% block body %}
+<div class="gs-fixed">
+  <div id="sidebar" class="unit-3">
+    <ul>
+      <li><a href="{{ root_url }}index.html">Main</a></li>
+      <li><a href="{{ root_url }}typo.html">Blocks and typography</a></li>
+      <li><a href="{{ root_url }}tables.html">Tables</a></li>
+      <li><a href="{{ root_url }}colors.html">Colors</a></li>
+      <li><a href="{{ root_url }}grid.html">Grid</a></li>
+      <li><a href="{{ root_url }}forms.html">Forms</a></li>
+      <li><a href="{{ root_url }}messages.html">Messages</a></li>
+    </ul>
+  </div>
+  <div id="main" class="unit-9">
+    {% block content %}{% endblock content %}
+  </div>
+</div>
+{% endblock body %}
+</body>
+</html>

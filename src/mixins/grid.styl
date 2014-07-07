@@ -1,0 +1,77 @@
+//
+// Clearfix
+//
+clearfix()
+    zoom 1
+
+    &:after, &:before
+        content " "
+        display table
+
+    &:after
+        clear both
+
+//
+// Add gutters to columns
+//
+gs_col_gutters()
+    set_remsize(padding-left, grid_gutter_width / 2)
+    set_remsize(padding-right, grid_gutter_width / 2)
+    {block}
+
+//
+// Pull gutter width on each row side
+//
+gs_pull_gutters()
+    set_remsize(margin-left, -(grid_gutter_width / 2))
+    set_remsize(margin-right, -(grid_gutter_width / 2))
+    {block}
+
+//
+// Fixed grid system selectors
+//
+gs_fixed_cols(columns, vp_width, class_name, prefix)
+    width = unit(round(10000 * (vp_width - 1)) / 10000, 'em')
+
+    .{class_name}
+        width width
+
+    for i in 1..columns
+        .{class_name}>.unit-{i}, .{class_name}>.unit-{prefix}-{i}
+            width round(width / columns * i, 5)
+
+//
+// Fluid grid system selectors
+//
+gs_fluid_cols(columns, class_name, prefix, with_default=false)
+    for i in (1..columns)
+        width = unit(round(100 / columns * i, 5), '%')
+        selectors = ()
+
+        if prefix
+            push(selectors, '.%s>.unit-%s-%s' % (unquote(class_name) unquote(prefix) i))
+
+        if with_default
+            push(selectors, '.%s>.unit-%s' % (unquote(class_name) i))
+
+        {join(',', selectors)}
+            width width
+
+//
+// Distributed grid system selectors
+//
+gs_dist_cols(columns, class_name, prefix=null, with_default=false)
+    for i in 1..columns
+        width = unit(round(100 / i, 5), '%')
+        selectors = ()
+
+        if prefix
+            push(selectors, '.%s.dist-%s-%s' % (unquote(class_name) unquote(prefix) i))
+
+        if with_default
+            push(selectors, '.%s.dist-%s' % (unquote(class_name) i))
+
+        if columns % i == 0
+            {join(',', selectors)}
+                &>*
+                    width width

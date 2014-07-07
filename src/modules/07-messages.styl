@@ -1,0 +1,26 @@
+div.messages
+    flow_block()
+    padded_box(2px)
+
+    background lighten(color_gray_lighter, 85%)
+    border 2px solid color_info
+    border-radius 4px
+
+    ul, ol
+        padding 0
+        list-style none
+
+    &>ul, &>ol, &>p
+        &:last-child
+            margin-bottom 0
+
+    &.success
+        border-color color_success
+
+    &.warning
+        border-color color_warning
+
+    &.error
+        color: darken(color_danger, 25%)
+        border-color color_danger
+        background-color lighten(color_danger, 95%)

@@ -1,0 +1,42 @@
+table
+    max-width 100%
+    table-layout fixed
+    border-collapse collapse
+    vertical-align align
+
+caption
+    color color_gray
+    font-style italic
+    margin-bottom 0
+
+td, th
+    padding unit(line_height / 2, 'em')
+    padding 'calc(%s - .5px)' % @padding
+    vertical-align top
+    min-width 2em
+    cursor default
+    text-align left
+    border 1px solid color_gray_light
+
+th
+    font-weight bold
+    background-color color_gray_lighter
+
+thead tr:last-child th
+    border-bottom-color color_gray
+
+tfoot
+    td, th
+        font-style italic
+
+table.reset
+    td, th
+        border 0
+        padding 0 unit(line_height / 2, 'em')
+        background none
+
+    td:last-child, th:last-child
+        padding-right 0
+
+    td:first-child, th:first-child
+        padding-left 0

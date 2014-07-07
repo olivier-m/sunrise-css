@@ -1,0 +1,67 @@
+// Normalize enhancements
+// ============================================================================
+
+//
+// Set box model to border-box
+//
+* {
+    box-sizing(border-box)
+    &:after, &:before {
+        box-sizing(border-box)
+    }
+}
+
+//
+// Fix img and iframe display
+//
+img
+iframe
+    vertical-align: middle;
+
+//
+// Simple phone media query
+//
++media_mobile()
+    body
+        width: auto;
+
+    iframe
+    object
+    embed
+        max-width 100%
+
+    textarea
+    table
+    td
+    th
+    code
+    pre
+    samp
+        -webkit-hyphens auto
+        -moz-hyphens auto
+        hyphens auto
+        word-wrap break-word
+
+    pre
+        white-space pre-wrap
+
+@media (max-device-width: 768px) and (orientation: landscape)
+    html
+        -webkit-text-size-adjust 100%
+
+
+// Base classes and mixins
+// ============================================================================
+
+//
+// Reset class / mixin
+//
+.reset
+    margin 0
+    padding 0
+
+//
+// Max width
+//
+.max
+    width 100%

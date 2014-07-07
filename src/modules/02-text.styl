@@ -1,0 +1,307 @@
+html
+    // set base font-size to equiv "10px", which is adapted to rem unit
+    font-size 62.5%
+
+    // IE9-IE11 math fixing. See http://bit.ly/1g4X0bX
+    // thanks to @guardian, @victorbritopro and @eQRoeil
+    font-size calc(1em * 0.625)
+
+body
+    // set body font-size in em (1.4em equiv "14px")
+    if not unit(base_font_size) is px
+        error('Base font size should be in px')
+
+    background-color color_base_bg
+    color color_base
+    font-family font_stack_common
+    font-size unit((base_font_size / 10), 'em')
+    line-height line_height
+
+
+// Flow blocks
+// ============================================================================
+p
+ul
+ol
+dl
+blockquote
+td
+th
+label
+textarea
+table
+caption
+details
+figure
+    line-height line_height
+
+
+$flow_block
+    flow_block()
+
+p
+ul
+ol
+dl
+blockquote
+address
+table
+hr
+form
+    @extend $flow_block
+
+//
+// Horizontal rule
+//
+hr
+    border 0
+    border-top 1px solid @color_gray_light
+    height 0
+    margin-top 0
+
+//
+// Lists
+//
+ul
+ol
+    padding-left 2em
+
+ul
+    list-style disc
+
+li
+    p
+    ul
+    ol
+        margin-top 0
+        margin-bottom 0
+
+dt
+    font-weight bold
+    margin 0
+
+dd
+    @extend $flow_block
+    padding 0
+    margin-left 2em
+
+    & > ul
+    & > ol
+        padding-left 1em
+
+//
+// Blockquotes
+//
+blockquote
+    margin-left 2em
+
+//
+// Address
+//
+address
+    font-style italic
+
+
+// Headings
+// ============================================================================
+$heading
+    display block
+    font-weight normal
+    color color_gray_dark
+
+    &:first-child
+        margin-top 0
+
+for heading in heading_conf
+    {heading}, .{heading}
+        @extend $heading
+
+        _conf = heading_conf[heading]
+        for p in _conf
+            if p is font-size
+                set_remsize(font-size, _conf[p])
+                vertical_flow(@font-size)
+            else if p is _margin
+                if not _conf['margin']
+                    _margin = ()
+                    for s in _conf[p]
+                        push(_margin, s != 0 ? s * get_line_height() : 0)
+                    set_remsize(margin, _margin)
+            else
+                {p} _conf[p]
+
+
+// Code
+// ============================================================================
+code
+pre
+samp
+kbd
+    font-family font_stack_monospace
+    set_remsize(font-size, 1.2rem)
+
+pre
+    flow_block(1.2rem)
+    white-space pre-wrap
+
+    padded_box(1px)
+    background-color lighten(color_gray_lighter, 40%)
+    color color_gray_dark
+    border 1px solid lighten(color_gray_light, 40%)
+    border-radius 4px
+
+    code
+        padding 0
+        border 0
+        background-color inherit
+        color inherit
+
+code
+samp
+kbd
+    line-height 1  // Force line-height to avoid breaking vertical rythm
+
+code
+    badge(lighten(color_gray_lighter, 40%), color_gray_dark, lighten(color_gray_light, 40%))
+
+kbd
+    badge(color_gray_dark)
+
+
+// Phrasing
+// ============================================================================
+
+//
+// Italic tags
+//
+em
+cite
+dfn
+i
+var
+    font-style italic
+
+//
+// Bold tags
+//
+b
+strong
+    font-style bold
+
+//
+// Small tags
+//
+small
+sub
+sup
+    font-size smaller
+    line-height 1
+
+big
+    font-size 120%
+    line-height 1
+
+//
+// Inline quotes
+//
+q
+    quotes "\201C" "\201D" "\2018" "\2019"
+
+    &:before
+        content: open-quote;
+
+    &:after
+        content: close-quote;
+
+    languages = {
+        'de': "\201e" "\201c" "\201a" "\2018",
+        'en': "\201C" "\201D" "\2018" "\2019",
+        'es': "\00AB" "\00BB" "\201C" "\201D",
+        'fr': "\00AB\A0" "\A0\00BB" "\201C" "\201D" "\2018" "\2019",
+        'it': "\00AB\A0" "\A0\00BB" "\201C" "\201D"
+    }
+    for lang in languages
+        :lang({lang}) > &
+        body &:lang({lang})
+            quotes languages[lang]
+
+//
+// sub / sup
+//
+sup
+.sup
+sub
+.sub
+  font-size 0.7em
+  font-variant normal
+  line-height 0
+
+sup
+.sup
+  vertical-align super
+
+sub,
+.sub
+  vertical-align sub
+
+//
+// mark
+//
+mark
+    background #fd5
+    padding-left 0.25em
+    padding-right 0.25em
+
+//
+// Images
+//
+img
+    height auto
+    vertical-align middle
+    border 0
+
+a:link img
+a:visited img
+    border 0
+
+//
+// Links
+//
+a
+    color color_link
+    text-decoration none
+
+    &:active
+        outline 0
+
+    &:focus
+        outline 1px dotted color_link_hover
+
+    &:visited
+        color color_link
+
+    &:hover
+    &:focus
+    &:active
+    &:visited:hover
+    &:visited:focus
+    &:visited:active
+        color: color_link_hover
+
+
+// Util classes
+// ============================================================================
+
+//
+// Small text
+//
+.small
+    set_remsize(font-size, base_font_size - 2)
+    vertical_flow(@font-size)
+
+//
+// Big text
+//
+.big
+    set_remsize(font-size, base_font_size + 2)
+    vertical_flow(@font-size)
