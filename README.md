@@ -42,3 +42,4 @@ as major sources of inspiration.
 - Raphaël Goetter for [KNACSS](http://www.knacss.com/)
 - Nicolas Hoffmann for [RÖCSSTI](http://rocssti.nicolas-hoffmann.net/)
 - Romy Duhem-Verdière for [Tiny Typo](http://tinytypo.tetue.net/tinytypo.html)
+- KRKN for [Kouto Swiss](http://kouto-swiss.io/)

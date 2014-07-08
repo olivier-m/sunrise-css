@@ -15,10 +15,38 @@ color_bg(color)
 fade(color, value)
     return rgba(color, value)
 
-gradient(origin=top, start=#fff, stop=#000)
-    background-color start
-    background-image -webkit-linear-gradient(origin, start, stop)
-    background-image -moz-linear-gradient(origin, start, stop)
-    background-image -o-linear-gradient(origin, start, stop)
-    background-image -ms-linear-gradient(origin, start, stop)
-    background-image linear-gradient(origin, start, stop)
+//
+// linear-gradient mixin from kouto-swiss
+// http://kouto-swiss.io/
+//
+linear-gradient(start, props...)
+    if not current-property or current-property[0] != 'background-image'
+        error('linear-gradient() must be used within a "background-image" property')
+
+    steps = ()
+    compat_steps = ()
+    if length(start) == 1
+        if start is a 'color'
+            push(steps, start)
+            push(compat_steps, start)
+        else
+            push(steps, start)
+            if unit(start) == 'deg'
+                push(compat_steps, start + 180deg)
+            else
+                push(compat_steps, start)
+    else
+        push(steps, join(' ', start ))
+        if(start[ 0 ] == 'to')
+            shift(start)
+            push(compat_steps, join(' ', opposite-position(start)))
+        else
+            push(compat_steps, join(' ', start ))
+
+    for prop in props
+        push( steps, join(' ', prop ))
+        push( compat_steps, join(' ', prop ))
+
+    for prefix in '-webkit' '-moz' '-ms' '-o'
+        add-property('background-image', unquote(prefix + '-linear-gradient(' + join(',', compat_steps) + ')'))
+    unquote('linear-gradient(' + join(',', steps) + ')')

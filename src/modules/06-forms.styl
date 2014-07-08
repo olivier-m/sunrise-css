@@ -40,21 +40,25 @@ btn_danger_bg2 ?= lighten(btn_danger_bg1, 10%)
 button_color(bg1, bg2)
     border-color darken(bg1, 10%)
     border-top-color bg1
-    color: contrasted(bg1)
-    gradient(bottom, bg1, bg2)
+    color contrasted(bg1)
+    background-color bg1
+    background-image linear-gradient(to top, @background-color, bg2)
 
     &:hover, &:focus
         color @color
         border-color darken(bg1, 35%)
-        gradient(bottom, darken(bg1, 5%), darken(bg2, 5%))
+        background-color darken(bg1, 15%)
+        background-image linear-gradient(to top, @background-color, darken(bg2, 15%))
 
     &:active
-        color: @color
-        gradient(top, bg1, bg2);
+        color @color
+        background-color bg1
+        background-image linear-gradient(to bottom, bg1, bg2)
 
     &[disabled]
-        gradient(bottom, lighten(bg1, 70%), lighten(bg2, 70%))
         border-color lighten(@border-color, 40%)
+        background-color lighten(bg1, 70%)
+        background-image linear-gradient(to top, @background-color, lighten(bg2, 70%))
         color: lighten(contrasted(@background-color), 30%)
 
 
