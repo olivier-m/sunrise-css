@@ -1,5 +1,5 @@
 @require "../src/config"
-@require "../src/mixins/*"
+@require "../src/lib/*"
 
 #sidebar
 #main
@@ -67,8 +67,8 @@ p.example-toggle
 .grider-sample
     .gs-fluid>[class*="unit-"]>*
     .gs-dist>*>*
-        set_remsize(padding, get_line_height() / 4)
-        set_remsize(margin, 0, 0, get_line_height() / 2, 0)
+        padding remsize(get_line_height() / 4)
+        margin remsize(0, 0, get_line_height() / 2, 0)
         text-align: center;
 
 

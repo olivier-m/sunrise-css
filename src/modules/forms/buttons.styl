@@ -1,0 +1,28 @@
+@require "modules/forms/buttons.ext"
+
+button
+input[type="button"]
+input[type="reset"]
+input[type="submit"]
+    -webkit-appearance button
+    width auto
+    overflow hidden
+
+a.button
+button
+input[type=button],
+input[type=reset],
+input[type=submit]
+    @extend $button_base
+
+    &.primary
+        @extend $button_base.primary
+
+    &.success
+        @extend $button_base.success
+
+    &.warning
+        @extend $button_base.warning
+
+    &.danger
+        @extend $button_base.danger

@@ -1,11 +1,3 @@
-html
-    // set base font-size to equiv "10px", which is adapted to rem unit
-    font-size 62.5%
-
-    // IE9-IE11 math fixing. See http://bit.ly/1g4X0bX
-    // thanks to @guardian, @victorbritopro and @eQRoeil
-    font-size calc(1em * 0.625)
-
 body
     // set body font-size in em (1.4em equiv "14px")
     if not unit(base_font_size) is px
@@ -20,6 +12,9 @@ body
 
 // Flow blocks
 // ============================================================================
+$flow_block
+    flow_block()
+
 p
 ul
 ol
@@ -35,9 +30,6 @@ details
 figure
     line-height line_height
 
-
-$flow_block
-    flow_block()
 
 p
 ul
@@ -119,14 +111,14 @@ for heading in heading_conf
         _conf = heading_conf[heading]
         for p in _conf
             if p is font-size
-                set_remsize(font-size, _conf[p])
+                font-size: remsize(_conf[p])
                 vertical_flow(@font-size)
             else if p is _margin
                 if not _conf['margin']
                     _margin = ()
                     for s in _conf[p]
                         push(_margin, s != 0 ? s * get_line_height() : 0)
-                    set_remsize(margin, _margin)
+                    margin remsize(_margin)
             else
                 {p} _conf[p]
 
@@ -138,7 +130,7 @@ pre
 samp
 kbd
     font-family font_stack_monospace
-    set_remsize(font-size, 1.2rem)
+    font-size remsize(1.2rem)
 
 pre
     flow_block(1.2rem)
@@ -296,12 +288,12 @@ a
 // Small text
 //
 .small
-    set_remsize(font-size, base_font_size - 2)
+    font-size remsize(base_font_size - 2)
     vertical_flow(@font-size)
 
 //
 // Big text
 //
 .big
-    set_remsize(font-size, base_font_size + 2)
+    font-size remsize(base_font_size + 2)
     vertical_flow(@font-size)

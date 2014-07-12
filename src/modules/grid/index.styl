@@ -1,3 +1,5 @@
+@require "modules/grid/grid.mix"
+
 //
 // clearfix class
 //
@@ -45,7 +47,7 @@
         text-justify distribute-all-lines
 
         & > *
-            set_remsize(font-size, base_font_size)
+            font-size remsize(base_font_size)
 
 
 //

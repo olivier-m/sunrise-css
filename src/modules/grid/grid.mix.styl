@@ -15,16 +15,16 @@ clearfix()
 // Add gutters to columns
 //
 gs_col_gutters()
-    set_remsize(padding-left, grid_gutter_width / 2)
-    set_remsize(padding-right, grid_gutter_width / 2)
+    padding-left remsize(grid_gutter_width / 2)
+    padding-right remsize(grid_gutter_width / 2)
     {block}
 
 //
 // Pull gutter width on each row side
 //
 gs_pull_gutters()
-    set_remsize(margin-left, -(grid_gutter_width / 2))
-    set_remsize(margin-right, -(grid_gutter_width / 2))
+    margin-left remsize(-(grid_gutter_width / 2))
+    margin-right remsize(-(grid_gutter_width / 2))
     {block}
 
 //

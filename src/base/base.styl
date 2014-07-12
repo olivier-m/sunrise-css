@@ -5,9 +5,9 @@
 // Set box model to border-box
 //
 * {
-    box-sizing(border-box)
+    box-sizing border-box
     &:after, &:before {
-        box-sizing(border-box)
+        box-sizing border-box
     }
 }
 
@@ -48,6 +48,20 @@ iframe
 @media (max-device-width: 768px) and (orientation: landscape)
     html
         -webkit-text-size-adjust 100%
+
+
+// Base classes and mixins
+// ============================================================================
+
+//
+// Set root font size to 10px
+//
+html
+    font-size 62.5%
+
+    // IE9-IE11 math fixing. See http://bit.ly/1g4X0bX
+    // thanks to @guardian, @victorbritopro and @eQRoeil
+    font-size calc(1em * 0.625)
 
 
 // Base classes and mixins

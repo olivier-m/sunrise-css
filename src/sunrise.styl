@@ -1,13 +1,32 @@
 @charset "UTF-8"
 
-@require "config"
-@require "mixins/**"
+// Base
+// ============================================================================
 
-@require "modules/00-normalize"
-@require "modules/01-base"
-@require "modules/02-text"
-@require "modules/03-tables"
-@require "modules/04-colors"
-@require "modules/05-grid"
-@require "modules/06-forms"
-@require "modules/07-messages"
+// Configuration
+@require "config"
+
+// Mixins and functions
+@require "lib/**"
+
+// Normalize and typo
+@require "base"
+
+
+// Modules
+// ============================================================================
+
+// Tables
+// @require "modules/tables"
+
+// Grid
+@require "modules/grid"
+
+// Colors
+// @require "modules/colors"
+
+// Messages
+// @require "modules/messages"
+
+// Forms
+// @require "modules/forms"

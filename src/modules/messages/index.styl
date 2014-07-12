@@ -1,0 +1,13 @@
+@require "modules/messages/messages.ext"
+
+div.messages
+    @extend $message_base
+
+    &.success
+        @extend $message_base.success
+
+    &.warning
+        @extend $message_base.warning
+
+    &.error
+        @extend $message_base.error

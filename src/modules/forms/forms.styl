@@ -35,33 +35,6 @@ btn_danger_bg1 ?= color_danger
 btn_danger_bg2 ?= lighten(btn_danger_bg1, 25%)
 
 
-// Mixins
-// ============================================================================
-button_color(bg1, bg2)
-    border-color darken(bg1, 10%)
-    border-top-color bg1
-    color contrasted(bg1)
-    background-color bg1
-    background-image linear-gradient(to top, @background-color, bg2)
-
-    &:hover, &:focus
-        color @color
-        border-color darken(bg1, 35%)
-        background-color darken(bg1, 15%)
-        background-image linear-gradient(to top, @background-color, darken(bg2, 15%))
-
-    &:active
-        color @color
-        background-color bg1
-        background-image linear-gradient(to bottom, bg1, bg2)
-
-    &[disabled]
-        border-color lighten(@border-color, 40%)
-        background-color lighten(bg1, 70%)
-        background-image linear-gradient(to top, @background-color, lighten(bg2, 70%))
-        color: lighten(contrasted(@background-color), 30%)
-
-
 // Common selectors
 // ============================================================================
 input_widgets = "
@@ -80,14 +53,6 @@ input_widgets = "
     input[type=range],
     input[type=color],
     textarea,select
-"
-
-button_widgets = "
-    a.button,
-    button,
-    input[type=button],
-    input[type=reset],
-    input[type=submit]
 "
 
 
@@ -203,62 +168,6 @@ button[disabled]
     select
         padding 0
         margin 4px 0
-
-
-//
-// Buttons
-//
-$base_button
-    inline_block()
-    padding 8px 9px
-    margin 0 0.2em 0 0
-
-    font-family font_stack_common
-    font-size 1em
-    line-height normal  // This is Firefox and Opera defaults and could not be changed
-    vertical-align baseline
-    border-width 1px
-    border-style solid
-    border-radius 3px
-    cursor pointer
-
-    // Removes inner padding and border in FF3+
-    &::-moz-focus-inner
-        border none
-        padding 0
-
-    &:focus
-        outline 0
-
-    // Default colors
-    button_color(btn_default_bg1, btn_default_bg2);
-
-    // Primary color
-    &.primary
-        button_color(btn_primary_bg1, btn_primary_bg2)
-
-    // Success
-    &.success
-        button_color(btn_success_bg1, btn_success_bg2)
-
-    // Warning
-    &.warning
-        button_color(btn_warning_bg1, btn_warning_bg2)
-
-    // Danger
-    &.danger
-        button_color(btn_danger_bg1, btn_danger_bg2)
-
-{button_widgets}
-    @extend $base_button
-
-button
-input[type="button"]
-input[type="reset"]
-input[type="submit"]
-    -webkit-appearance button
-    width auto
-    overflow hidden
 
 
 // Form layout
@@ -403,7 +312,7 @@ $field_solid_padding
 // Controls
 //
 .form-controls
-    set_remsize(margin, get_line_height(), 0)
+    margin remsize(get_line_height() 0)
 
 
 //

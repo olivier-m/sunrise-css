@@ -19,7 +19,10 @@ get_rem(size)
 //
 // Set rem size with a pixel fallback
 //
-set_remsize(property, args...)
+remsize(args...)
+    if not current-property
+        error('remsize() must be used within a property')
+
     p1 = ()
     p2 = ()
     _args = ()
@@ -31,7 +34,7 @@ set_remsize(property, args...)
         else
             push(_args, x)
 
-    for arg in args
+    for arg in arguments
         -f(arg)
 
     for arg in _args
@@ -42,17 +45,16 @@ set_remsize(property, args...)
             push(p1, arg)
             push(p2, arg)
 
-    {property} p1
     if p1 != p2
-        {property} p2
+        add-property(current-property[0], p1)
 
+    p2
 
 //
 // Returns base line height
 //
 get_line_height()
     return get_px(base_font_size) * line_height
-
 
 //
 // Add a fixed bottom margin on block
@@ -102,4 +104,4 @@ vertical_flow(font_size=base_font_size)
     if font_size > line and line * covers != font_size
         pxtop = (line * covers - font_size) / covers - 1px
         position relative
-        set_remsize(top, pxtop)
+        top remsize(pxtop)

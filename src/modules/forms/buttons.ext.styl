@@ -1,0 +1,42 @@
+@require "modules/forms/buttons.mix"
+
+$button_base
+    inline_block()
+    padding 8px 9px
+    margin 0 0.2em 0 0
+
+    font-family font_stack_common
+    font-size 1em
+    line-height normal  // This is Firefox and Opera defaults and could not be changed
+    vertical-align baseline
+    border-width 1px
+    border-style solid
+    border-radius 3px
+    cursor pointer
+
+    // Removes inner padding and border in FF3+
+    &::-moz-focus-inner
+        border none
+        padding 0
+
+    &:focus
+        outline 0
+
+    // Default colors
+    button_color(btn_default_bg1, btn_default_bg2);
+
+// Primary color
+$button_base.primary
+    button_color(btn_primary_bg1, btn_primary_bg2)
+
+// Success
+$button_base.success
+    button_color(btn_success_bg1, btn_success_bg2)
+
+// Warning
+$button_base.warning
+    button_color(btn_warning_bg1, btn_warning_bg2)
+
+// Danger
+$button_base.danger
+    button_color(btn_danger_bg1, btn_danger_bg2)

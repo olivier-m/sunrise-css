@@ -21,6 +21,10 @@ color_link_hover ?= darken(color_link, 35%)
 base_font_size  ?= 14px
 line_height     ?= 1.5
 
+font_stack_common    ?= "Helvetica Neue", Helvetica, Arial, sans-serif
+font_stack_monospace ?= Consolas,Menlo, "DejaVu Sans Mono", Courier, monospace
+
+// Headings
 heading_conf := {
     h1: {
         font-size: 3.4rem,
@@ -49,11 +53,6 @@ heading_conf := {
         _margin: 1 0 0 0
     }
 }
-
-
-font_stack_common    ?= "Helvetica Neue", Helvetica, Arial, sans-serif
-font_stack_monospace ?= Consolas,Menlo, "DejaVu Sans Mono", Courier, monospace
-
 
 // Grid
 grid_columns        ?= 12

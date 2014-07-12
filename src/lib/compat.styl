@@ -1,0 +1,56 @@
+//
+// inline-block for everyone
+//
+inline_block()
+    display inline-block
+    *zoom 1
+    *display inline
+    display unquote('inline\0')  // Awfull IE8 hack
+
+//
+// prefixed box-sizing
+//
+box-sizing()
+    -moz-box-sizing arguments
+    -webkit-box-sizing arguments
+    box-sizing arguments
+
+//
+// prefixed border-radius
+//
+border-radius()
+    -webkit-border-radius arguments
+    -moz-border-radius arguments
+    border-radius arguments
+    background-clip padding-box
+
+//
+// prefixed box-shadow
+//
+box-shadow()
+    -webkit-box-shadow arguments
+    -moz-box-shadow arguments
+    box-shadow arguments
+
+//
+// prefixed transition
+//
+transition()
+    -webkit-transition arguments
+    -moz-transition arguments
+    -o-transition arguments
+    transition arguments
+
+//
+// prefixed linear gradient
+//
+linear-gradient()
+    if not current-property or current-property[0] != 'background-image'
+        error('linear-gradient() must be used within a "background-image" property')
+
+    args = unquote(join(', ', arguments))
+    add-property('background-image', -moz-linear-gradient(args))
+    add-property('background-image', -webkit-linear-gradient(args))
+    add-property('background-image', -o-linear-gradient(args))
+    add-property('background-image', -ms-linear-gradient(args))
+    s('linear-gradient(%s)', args)

@@ -171,6 +171,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-swig2');
 
     grunt.registerTask('www', ['clean:www', 'swig', 'copy', 'stylus:www']);
-    grunt.registerTask('dist', ['clean:dist', 'stylus:dist']);
+    grunt.registerTask('dist', ['clean:dist', 'stylus:dist', 'stylus:distmin']);
     grunt.registerTask('runserver', ['www', 'connect:dev', 'watch']);
 };

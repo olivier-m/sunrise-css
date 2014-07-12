@@ -1,0 +1,17 @@
+@require "modules/colors/colors.mix"
+
+color_list = {
+    'primary': color_primary,
+    'success': color_success,
+    'info': color_info,
+    'warning': color_warning,
+    'danger': color_danger,
+    'gray': color_gray,
+    'gray-dark': color_gray_dark,
+    'gray-darker': color_gray_darker,
+    'gray-light': color_gray_light,
+    'gray-lighter': color_gray_lighter
+}
+
+for x in color_list
+    color_classes(x, color_list[x])
