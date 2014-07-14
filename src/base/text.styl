@@ -1,3 +1,10 @@
+html
+    font-size 62.5%
+
+    // IE9-IE11 math fixing. See http://bit.ly/1g4X0bX
+    // thanks to @guardian, @victorbritopro and @eQRoeil
+    font-size calc(1em * 0.625)
+
 body
     // set body font-size in em (1.4em equiv "14px")
     if not unit(base_font_size) is px
@@ -46,6 +53,7 @@ form
 // Horizontal rule
 //
 hr
+    box-sizing content-box
     border 0
     border-top 1px solid @color_gray_light
     height 0
@@ -86,6 +94,14 @@ dd
 //
 blockquote
     margin-left 2em
+
+//
+// Figures
+//
+figure
+    @extend $flow_block
+    margin-left 2em
+    margin-right 2em
 
 //
 // Address
@@ -178,20 +194,25 @@ var
 //
 b
 strong
-    font-style bold
+    font-weight bold
 
 //
 // Small tags
 //
 small
-sub
-sup
-    font-size smaller
+    font-size 80%
     line-height 1
 
 big
     font-size 120%
     line-height 1
+
+//
+// abbr
+//
+abbr[title]
+    border-bottom 1px dotted
+    cursor help
 
 //
 // Inline quotes
@@ -220,29 +241,25 @@ q
 //
 // sub / sup
 //
-sup
-.sup
 sub
-.sub
-  font-size 0.7em
-  font-variant normal
-  line-height 0
+sup
+    font-size 75%
+    line-height 0
+    position relative
+    vertical-align baseline
 
 sup
-.sup
-  vertical-align super
+    top -0.5em
 
-sub,
-.sub
-  vertical-align sub
+sub
+    bottom -0.25em
 
 //
 // mark
 //
 mark
     background #fd5
-    padding-left 0.25em
-    padding-right 0.25em
+    color inherit
 
 //
 // Images
@@ -261,13 +278,15 @@ a:visited img
 //
 a
     color color_link
+    background transparent
     text-decoration none
 
     &:active
+    &:hover
         outline 0
 
     &:focus
-        outline 1px dotted color_link_hover
+        outline thin dotted color_link
 
     &:visited
         color color_link
@@ -279,21 +298,3 @@ a
     &:visited:focus
     &:visited:active
         color: color_link_hover
-
-
-// Util classes
-// ============================================================================
-
-//
-// Small text
-//
-.small
-    font-size remsize(base_font_size - 2)
-    vertical_flow(@font-size)
-
-//
-// Big text
-//
-.big
-    font-size remsize(base_font_size + 2)
-    vertical_flow(@font-size)

@@ -2,6 +2,7 @@ table
     max-width 100%
     table-layout fixed
     border-collapse collapse
+    border-spacing 0
     vertical-align align
 
 caption
@@ -30,13 +31,4 @@ tfoot
         font-style italic
 
 table.reset
-    td, th
-        border 0
-        padding 0 unit(line_height / 2, 'em')
-        background none
-
-    td:last-child, th:last-child
-        padding-right 0
-
-    td:first-child, th:first-child
-        padding-left 0
+    @extend $reset_table

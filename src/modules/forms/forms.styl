@@ -148,7 +148,6 @@ textarea:-moz-placeholder
 // Disabled fields
 html input[disabled]
 html textarea[disabled]
-button[disabled]
     cursor not-allowed
 
 {input_widgets}
@@ -337,11 +336,10 @@ $field_solid_padding
                 @extend $base_input:focus:invalid
 
     .errorlist
-        @extend .reset
-        list-style none
+        @extend $reset
+        @extend $reset_list
         color color_important_text
         font-weight bold
-        padding 0
 
     &.horizontal .errorlist
         // Offset errorlist on horizontal fields
