@@ -122,12 +122,14 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/sunrise.css': 'src/sunrise.styl'
+                    'dist/sunrise.css': 'src/sunrise.styl',
+                    'dist/sunrise-forms.css': 'src/modules/forms/standalone.styl'
                 }
             },
             distmin: {
                 files: {
-                    'dist/css/sunrise.min.css': 'src/sunrise.styl'
+                    'dist/sunrise.min.css': 'src/sunrise.styl',
+                    'dist/sunrise-forms.min.css': 'src/modules/forms/standalone.styl'
                 },
                 options: {
                     compress: true,
