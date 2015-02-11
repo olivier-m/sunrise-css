@@ -1,6 +1,6 @@
 {
   "name": "Sunrise",
-  "version": "0.2.0",
+  "version": "0.9.0",
   "description": "CSS Framework",
   "license": "FreeBSD",
   "author": {
@@ -10,14 +10,18 @@
   "repository": "https://github.com/olivier-m/sunrise.git",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-connect": "~0.8.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-stylus": "^0.18.0",
+    "grunt-autoprefixer": "^2.2.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-connect": "~0.9.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-stylus": "^0.20.0",
+    "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-swig2": "^0.1.3",
-    "highlight.js": "^8.0.0",
-    "jquery": "^1.11.1",
-    "js-beautify": "^1.5.1"
+    "grunt-csso": "^0.7.0",
+    "grunt-swig2": "^0.2.0",
+    "highlight.js": "^8.4.0",
+    "jquery": "^1.11.2",
+    "js-beautify": "^1.5.4",
+    "velocity-animate": "^1.2.1"
   }
 }

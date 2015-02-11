@@ -1,0 +1,32 @@
+{% extends "ext/base.html" %}
+
+{% block page_title %}List group - {% parent %}{% endblock page_title %}
+
+{% block content %}
+<h1>List group</h1>
+
+<h2>Basic list group</h2>
+
+{% codesample noblock %}
+<ul class="list-group">
+  <li>Cras justo odio</li>
+  <li>Dapibus ac facilisis in</li>
+  <li>Morbi leo risus</li>
+  <li>Porta ac consectetur ac</li>
+  <li>Vestibulum at eros</li>
+</ul>
+{% endcodesample %}
+
+<h2>Linked items</h2>
+
+{% codesample noblock %}
+<div class="list-group">
+  <a href="#">Cras justo odio</a>
+  <a href="#">Dapibus ac facilisis in</a>
+  <a href="#">Morbi leo risus</a>
+  <a href="#">Porta ac consectetur ac</a>
+  <a href="#">Vestibulum at eros</a>
+</div>
+{% endcodesample %}
+
+{% endblock content %}

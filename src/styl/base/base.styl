@@ -177,7 +177,6 @@ video
     max-width 100%
 
 
-
 // Base classes
 // ============================================================================
 @require "base/base.ext"
@@ -187,3 +186,16 @@ video
 
 .max
     @extend $max_width
+
+.nowrap
+    white-space nowrap
+
+.sr-only
+    position absolute
+    width 1px
+    height 1px
+    margin -1px
+    padding 0
+    overflow hidden
+    clip rect(0,0,0,0)
+    border 0

@@ -11,30 +11,48 @@
   <link rel="stylesheet" href="{{ root_url }}css/sunrise.css" />
   <link rel="stylesheet" href="{{ root_url }}css/docs.css" />
   {% endblock stylesheets %}
-
-  <script src="{{ root_url }}js/jquery.min.js"></script>
-  <script src="{{ root_url }}js/script.js"></script>
   {% endblock head %}
 </head>
 
-<body>
+<body {% block body_attrs %}{% endblock %}>
 {% block body %}
-<div id="page" class="gs-fixed">
-  <div id="sidebar" class="unit-3">
-    <ul>
-      <li><a href="{{ root_url }}index.html">Main</a></li>
-      <li><a href="{{ root_url }}typo.html">Blocks and typography</a></li>
-      <li><a href="{{ root_url }}tables.html">Tables</a></li>
-      <li><a href="{{ root_url }}colors.html">Colors</a></li>
-      <li><a href="{{ root_url }}grid.html">Grid</a></li>
-      <li><a href="{{ root_url }}forms.html">Forms</a></li>
-      <li><a href="{{ root_url }}messages.html">Messages</a></li>
-    </ul>
-  </div>
-  <div id="main" class="unit-9">
-    {% block content %}{% endblock content %}
+<div id="page">
+  <div class="offcanvas">
+    <a href="" class="offcanvas-toggle" data-toggle="offcanvas">Menu</a>
+    <nav id="sidebar" class="vertical-menu offcanvas-sidebar">
+      <ul>
+        <li>Base
+          <ul>
+            <li><a href="{{ root_url }}index.html">Main</a></li>
+            <li><a href="{{ root_url }}typo.html">Blocks and typography</a></li>
+            <li><a href="{{ root_url }}tables.html">Tables</a></li>
+            <li><a href="{{ root_url }}colors.html">Colors</a></li>
+            <li><a href="{{ root_url }}grid.html">Grid</a></li>
+            <li><a href="{{ root_url }}forms.html">Forms</a></li>
+            <li><a href="{{ root_url }}messages.html">Messages</a></li>
+          </ul>
+        </li>
+        <li>Modules
+          <ul>
+            <li><a href="{{ root_url }}badges.html">Badges</a></li>
+            <li><a href="{{ root_url }}list-group.html">List group</a></li>
+            <li><a href="{{ root_url }}collapse.html">Collapse</a></li>
+            <li><a href="{{ root_url }}tabs.html">Tabs</a></li>
+            <li><a href="{{ root_url }}modal.html">Modal dialog</a></li>
+            <li><a href="{{ root_url }}form-extras.html">Form extras</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main" class="offcanvas-content">
+      {% block content %}{% endblock content %}
+    </main>
   </div>
 </div>
 {% endblock body %}
+
+<script src="{{ root_url }}js/sunrise.web.js"></script>
+{% block body_end %}{% endblock %}
 </body>
 </html>

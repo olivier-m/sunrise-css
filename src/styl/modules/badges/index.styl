@@ -1,0 +1,63 @@
+@require "modules/colors/colors.mix"
+
+color_badge ?= color_gray
+color_badge_fg ?= color_base_bg
+
+.badge
+.pill
+    inline_block()
+    white-space nowrap
+    vertical-align baseline
+    padding 0 7px
+    background-color color_badge
+    color color_badge_fg
+
+.badge
+    padding 0 5px
+    border-radius 2px
+
+.pill
+    padding-left 0.6em
+    padding-right @padding-left
+    border-radius 2em
+
+color_list = {
+    'primary': color_primary,
+    'success': color_success,
+    'info': color_info,
+    'warning': color_warning,
+    'danger': color_danger
+}
+
+for x in color_list
+    .badge.{x}
+    .pill.{x}
+        color_bg color_list[x];
+
+    a.badge.{x}
+    a.pill.{x}
+        &:visited
+            color_bg color_list[x];
+
+        &:hover, &:focus
+            color_bg darken(color_list[x], 20%)
+
+a.badge
+a.pill
+    &:visited
+        background-color color_badge
+        color color_badge_fg
+
+    &:hover, &:focus
+        color_bg darken(color_badge, 20%);
+
+button
+a.button
+    .badge
+    .pill
+        background-color color_base_bg
+        color color_base
+
+        for x in color_list
+            &.{x}
+                color color_list[x]

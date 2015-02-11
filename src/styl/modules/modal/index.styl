@@ -1,0 +1,110 @@
+zindex_modal ?= 2000
+
+
+// Hide scroll bar
+body.modal-lock
+    overflow hidden
+
+// Base modal styling
+.modal
+    display none
+    visibility hidden
+
+// Overlay and inside modal styling
+.modal-overlay
+    position fixed
+    top 0
+    left 0
+    right 0
+    bottom 0
+    z-index zindex_modal + 2
+    overflow auto
+    text-align center
+    display none
+    -webkit-overflow-scrolling touch
+
+    > *
+        -webkit-transform translateZ(0px)
+
+    > .modal-backdrop
+        position fixed
+        top 0
+        left 0
+        right 0
+        height 100%
+
+        background-color color_gray_darker
+        opacity 0.8
+
+    // Basic modal styling
+    > .modal
+        display block
+        visibility visible
+        position relative
+        width 90%
+        max-width screen_md
+        margin unit(line_height, 'em') auto
+        padding unit(line_height, 'em')
+        text-align left
+
+        background-color color_base_bg
+        box-shadow 0 0 20px fade(color_gray_darker, 0.6)
+        border-radius 6px
+
+    // Close button
+    > .modal > .modal-close
+        position absolute
+        top 4px
+        right 4px
+        width 26px
+        height 26px
+        padding 0
+        margin 0
+        border none
+        border-radius 50%
+        background color_base_bg
+        color color_gray_dark
+        opacity 0.5
+
+        i:after
+            content '×'
+            position static
+            display inline
+            margin-left 1px
+            font-family arial,Helvetica,sans-serif;
+            font-weight 700
+            font-style normal
+            font-size 24px
+
+        &:focus, &:hover
+            color color_link_hover
+
+
+    > .modal:hover, > .modal:focus
+        > .modal-close
+            opacity 0.8
+
+    // Modal image (lightbox)
+    > .modal.modal-image
+        display inline-block
+        width auto
+        max-width 90%
+        padding 0
+        background-color color_gray_darker
+
+        img
+            display block
+            border 1px solid color_gray_darker
+
+    > .modal.modal-loading
+        text-align center
+
+
++media_mobile()
+    .modal-overlay > .modal
+        width 100%
+        margin 0 auto
+        border-radius 0
+
+    .modal-overlay > .modal.modal-image
+        max-width 100%

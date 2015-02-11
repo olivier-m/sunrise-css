@@ -1,0 +1,41 @@
+.tabs
+    @extend $reset_list
+    clearfix()
+    border-bottom 1px solid color_gray_light
+
+    > li
+        position relative
+        display block
+
+        float left
+        margin-bottom -1px
+
+        > a
+            position relative
+            display block
+            padding unit(line_height/2, 'em') unit(line_height/2, 'em')
+            margin-right 2px
+            line-height line_height
+            border 1px solid transparent
+            border-radius 3px 3px 0 0
+
+            &:hover
+                background-color color_gray_lighter
+                border-color color_gray_lighter color_gray_lighter color_gray_light
+
+        &.active > a
+            &, &:hover, &:focus
+                color color_base
+                background-color color_base_bg
+                border 1px solid color_gray_light
+                border-bottom-color transparent
+                cursor default
+
+.tab-content
+    > .tab-pane
+        display none
+        visibility hidden
+
+    > .active
+        display block
+        visibility visible

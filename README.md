@@ -28,18 +28,18 @@ grunt runserver
 ```
 
 
-You can now visit `http://localhost:8000/`, edit files in `src/styl` and save your changes.
+You can now visit `http://localhost:7000/`, edit files in `src/` and save your changes.
 
 Sunrise uses the amazing [Stylus](https://learnboost.github.io/stylus/) CSS preprocessor.
 
 
 ## Credits
 
-Many thanks to all these brillant minds who created frameworks and libraries I could use
-as major sources of inspiration.
+Many thanks to all these brillant minds who created frameworks and libraries that I could use as major sources of inspiration.
 
 - Nicolas Gallagher for [Normalize.css](http://necolas.github.io/normalize.css/)
 - Raphaël Goetter for [KNACSS](http://www.knacss.com/)
 - Nicolas Hoffmann for [RÖCSSTI](http://rocssti.nicolas-hoffmann.net/)
 - Romy Duhem-Verdière for [Tiny Typo](http://tinytypo.tetue.net/tinytypo.html)
 - KRKN for [Kouto Swiss](http://kouto-swiss.io/)
+- [Twitter Bootstrap](http://getbootstrap.com/)

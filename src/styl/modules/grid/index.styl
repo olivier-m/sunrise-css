@@ -18,8 +18,8 @@
     @extend .clearfix
     gs_pull_gutters()
 
-.gs-fixed>[class*="unit-"]
-.gs-fluid>[class*="unit-"]
+.gs-fixed>[class*=" unit-"], .gs-fixed>[class^="unit-"]
+.gs-fluid>[class*=" unit-"], .gs-fluid>[class^="unit-"]
     inline_block()
     position relative
     min-height 1px

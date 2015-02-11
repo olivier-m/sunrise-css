@@ -4,9 +4,12 @@ module.exports = function(grunt) {
     'use strict';
 
     var pkg = grunt.file.readJSON('package.json');
+
     var beautify_html = require('js-beautify').html;
     var hljs = require('highlight.js');
+    var path = require('path');
 
+    var src_dir = './src';
 
     var swig_beautify = function(input) {
         return beautify_html(input.trim(), {
@@ -31,6 +34,18 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: pkg,
 
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 versions', 'Firefox ESR', 'ie 8', 'ie 9']
+            },
+            dist: {
+                src: ['dist/*.css']
+            },
+            www: {
+                src: ['_www/css/sunrise.css', '_www/css/docs.css']
+            }
+        },
+
         clean: {
             dist: ['dist'],
             www: ['_www']
@@ -40,7 +55,7 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     base: ['_www'],
-                    port: 8000,
+                    port: 7000,
                     hostname: '*',
                     livereload: 35729
                 }
@@ -48,13 +63,26 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            www_js: {
-                src: 'www/script.js',
-                dest: '_www/js/script.js'
-            },
-            www_jquery: {
-                src: 'node_modules/jquery/dist/jquery.min.js',
-                dest: '_www/js/jquery.min.js'
+            media: {
+                expand: true,
+                cwd: 'www',
+                src: ['media/**'],
+                dest: '_www/'
+            }
+        },
+
+        csso: {
+            dist: {
+                options: {
+                    report: 'gzip',
+                    banner: '/*! <%= pkg.name %> <%= pkg.version %> Copyright <%= grunt.template.today("yyyy") %>, <%= pkg.author.name %> and contributors\n' +
+                            ' * Released under the <%= pkg.license %> license - <%= grunt.template.today("isoUtcDateTime") %>\n' +
+                            ' */\n'
+                },
+                files: {
+                    'dist/sunrise.min.css': ['dist/sunrise.css'],
+                    'dist/sunrise-forms.min.css': ['dist/sunrise-forms.css']
+                }
             }
         },
 
@@ -110,7 +138,7 @@ module.exports = function(grunt) {
         stylus: {
             options: {
                 compress: false,
-                banner: '/*!\n' +
+                banner: '/*\n' +
                         ' * <%= pkg.name %>\n' +
                         ' * Version: <%= pkg.version %>\n' +
                         ' *\n' +
@@ -122,26 +150,48 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/sunrise.css': 'src/sunrise.styl',
-                    'dist/sunrise-forms.css': 'src/modules/forms/standalone.styl'
-                }
-            },
-            distmin: {
-                files: {
-                    'dist/sunrise.min.css': 'src/sunrise.styl',
-                    'dist/sunrise-forms.min.css': 'src/modules/forms/standalone.styl'
-                },
-                options: {
-                    compress: true,
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - '+
-                    '<%= grunt.template.today("isoUtcDateTime") %> - '+
-                    '<%= pkg.author.name %> and contributors. <%= pkg.license %> license. */\n'
+                    'dist/sunrise.css': path.join(src_dir, 'styl/sunrise.styl'),
+                    'dist/sunrise-forms.css': path.join(src_dir, 'styl/modules/forms/standalone.styl')
                 }
             },
             www: {
                 files: {
                     '_www/css/docs.css': 'www/docs.styl',
-                    '_www/css/sunrise.css': 'src/sunrise.styl'
+                    '_www/css/sunrise.css': path.join(src_dir, 'styl/sunrise.styl')
+                },
+                options: {
+                    paths: [path.join(src_dir, 'styl')]
+                }
+            }
+        },
+
+        uglify: {
+            dist: {
+                files: {
+                    'dist/js/sunrise.js': [path.join(src_dir, '**/*.js')],
+                    'dist/js/sunrise.full.js': [
+                        'node_modules/jquery/dist/jquery.js',
+                        'node_modules/velocity-animate/velocity.js',
+                        'node_modules/velocity-animate/velocity.ui.js',
+                        path.join(src_dir, 'js/**/*.js')
+                    ]
+                }
+            },
+            www: {
+                files: {
+                    '_www/js/sunrise.web.js': [
+                        'node_modules/jquery/dist/jquery.js',
+                        'node_modules/velocity-animate/velocity.js',
+                        'node_modules/velocity-animate/velocity.ui.js',
+                        path.join(src_dir, 'js/**/*.js'),
+                        'www/script.js'
+                    ]
+                },
+                options: {
+                    mangle: false,
+                    compress: false,
+                    beautify: true,
+                    preserveComments: 'all'
                 }
             }
         },
@@ -151,13 +201,17 @@ module.exports = function(grunt) {
                 files: ['www/templates/**'],
                 tasks: ['swig:html']
             },
-            media: {
-                files: ['www/*.js'],
-                tasks: ['copy:www_js']
-            },
             stylus: {
-                files: ['src/**', 'www/docs.styl'],
-                tasks: ['stylus:www']
+                files: [path.join(src_dir, 'styl/**/*.styl'), 'www/docs.styl'],
+                tasks: ['stylus:www', 'autoprefixer:www']
+            },
+            js: {
+                files: ['www/script.js', path.join(src_dir, 'js/**/*.js')],
+                tasks: ['uglify:www']
+            },
+            media: {
+                files: ['www/media/**'],
+                tasks: ['copy:media']
             },
             options: {
                 livereload: 35729
@@ -169,10 +223,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-stylus');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-csso');
     grunt.loadNpmTasks('grunt-swig2');
 
-    grunt.registerTask('www', ['clean:www', 'swig', 'copy', 'stylus:www']);
-    grunt.registerTask('dist', ['clean:dist', 'stylus:dist', 'stylus:distmin']);
+    grunt.registerTask('www', ['clean:www', 'copy', 'swig', 'stylus:www', 'autoprefixer:www', 'uglify:www']);
+    grunt.registerTask('dist', ['clean:dist', 'stylus:dist', 'autoprefixer:dist', 'csso:dist', 'uglify:dist']);
     grunt.registerTask('runserver', ['www', 'connect:dev', 'watch']);
 };

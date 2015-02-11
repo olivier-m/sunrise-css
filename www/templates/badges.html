@@ -1,0 +1,44 @@
+{% extends "ext/base.html" %}
+
+{% block page_title %}Badges - {% parent %}{% endblock page_title %}
+
+{% block content %}
+<h1>Badges</h1>
+
+{% codesample %}
+<p>Inbox <span class="badge">34</span></p>
+{% endcodesample %}
+
+{% codesample %}
+<p>Inbox <span class="pill">4</span></p>
+{% endcodesample %}
+
+{% codesample %}
+<p>
+  <span class="badge primary">primary</span>
+  <span class="badge success">success</span>
+  <span class="badge info">info</span>
+  <span class="badge warning">warning</span>
+  <span class="badge danger">danger</span>
+</p>
+<p>
+  <span class="pill primary">primary</span>
+  <span class="pill success">success</span>
+  <span class="pill info">info</span>
+  <span class="pill warning">warning</span>
+  <span class="pill danger">danger</span>
+</p>
+{% endcodesample %}
+
+{% codesample %}
+<p>Inbox <a href="#" class="pill">link</a> with <a href="#" class="badge success">color</a></p>
+{% endcodesample %}
+
+{% codesample %}
+<p>
+  <button>Inbox <span class="badge">15</span></button>
+  <a href="#" class="button success">Inbox <span class="pill danger">70</span></a>
+</p>
+{% endcodesample %}
+
+{% endblock %}
