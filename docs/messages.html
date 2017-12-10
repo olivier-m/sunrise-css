@@ -1,0 +1,36 @@
+{% extends "ext/base.html" %}
+
+{% block page_title %}Messages - {{ super() }}{% endblock page_title %}
+
+{% block content %}
+<h1>Messages</h1>
+
+<h2>Message content</h2>
+
+{% codesample %}
+<div class="messages">Simple message</div>
+
+<div class="messages">
+  <p>Messages within paragraphs</p>
+  <p>Second message</p>
+</div>
+
+<div class="messages">
+  <ul>
+    <li>Message item 1</li>
+    <li>Message item 2</li>
+  </ul>
+</div>
+{% endcodesample %}
+
+<h2>Message style</h2>
+
+{% codesample %}
+<div class="messages success">Success message</div>
+
+<div class="messages warning">Warning message</div>
+
+<div class="messages error">Error message</div>
+{% endcodesample %}
+
+{% endblock content %}

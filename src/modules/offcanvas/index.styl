@@ -1,0 +1,57 @@
+@require "../../core/base/extends"
+@require "./config"
+
+.offcanvas
+    @extend $clearfix
+
+    .offcanvas-sidebar
+        position fixed
+        top 0
+        left 0
+        bottom 0
+        width $offcanvas_width
+        overflow-y auto
+        z-index 200
+        transition left .25s ease-out
+        background-color $color_gray_lighter
+
+    .offcanvas-content
+        position relative
+        min-height 1px
+        margin-left $offcanvas_width
+        padding-left $offcanvas_gutter_width
+        padding-right $offcanvas_gutter_width
+
+    input.offcanvas-toggle
+        display none
+
+    label.offcanvas-toggle
+        display none
+        position fixed
+        top 0
+        left 0
+        z-index 400
+        width 2em
+        padding .5em 0
+        line-height 1
+        text-align center
+        background $color_gray
+        color white
+        font-weight bold
+        transition left .25s ease-out
+
+    +media_mobile()
+        .offcanvas-sidebar
+            left -($offcanvas_width)
+
+        .offcanvas-content
+            margin-left 2em
+
+        label.offcanvas-toggle
+            display block
+
+        input.offcanvas-toggle:checked
+            ~ .offcanvas-sidebar
+                left 0
+            ~ label.offcanvas-toggle
+                left ($offcanvas_width - 2)

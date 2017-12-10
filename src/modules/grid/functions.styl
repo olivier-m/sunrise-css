@@ -1,0 +1,76 @@
+//
+// Add gutters to columns
+//
+gs_col_gutters()
+    padding-left remsize($grid_gutter_width / 2)
+    padding-right remsize($grid_gutter_width / 2)
+    {block}
+
+//
+// Pull gutter width on each row side
+//
+gs_pull_gutters()
+    margin-left remsize(-($grid_gutter_width / 2))
+    margin-right remsize(-($grid_gutter_width / 2))
+    {block}
+
+//
+// Fixed grid system selectors
+//
+gs_fixed_cols($columns, $vp_width, $class_name, $prefix)
+    $width = unit(round(10000 * ($vp_width - 1)) / 10000, "em")
+
+    .{$class_name}
+        width $width
+
+    for $i in 1..$columns
+        .{$class_name}>.unit-{$i}, .{$class_name}>.unit-{$prefix}-{$i}
+            width round($width / $columns * $i, 5)
+
+//
+// Fluid grid system selectors
+//
+gs_fluid_cols($columns, $class_name, $prefix, $with_default=false)
+    for $i in (1..$columns)
+        $width = unit(round(100 / $columns * $i, 5), "%")
+        $selectors = ()
+        $push_selectors = ()
+        $pull_selectors = ()
+
+        if $prefix
+            push($selectors, ".%s>.unit-%s-%s" % (unquote($class_name) unquote($prefix) $i))
+            push($push_selectors, ".%s>.push-%s-%s" % (unquote($class_name) unquote($prefix) $i))
+            push($pull_selectors, ".%s>.pull-%s-%s" % (unquote($class_name) unquote($prefix) $i))
+
+        if $with_default
+            push($selectors, ".%s>.unit-%s" % (unquote($class_name) $i))
+            push($push_selectors, ".%s>.push-%s" % (unquote($class_name) $i))
+            push($pull_selectors, ".%s>.pull-%s" % (unquote($class_name) $i))
+
+        {join(",", $selectors)}
+            width $width
+
+        {join(",", $push_selectors)}
+            margin-left $width
+
+        {join(",", $pull_selectors)}
+            margin-right $width
+
+//
+// Distributed grid system selectors
+//
+gs_dist_cols($columns, $class_name, $prefix=null, $with_default=false)
+    for $i in 1..$columns
+        $width = unit(round(100 / $i, 5), "%")
+        $selectors = ()
+
+        if $prefix
+            push($selectors, ".%s.dist-%s-%s" % (unquote($class_name) unquote($prefix) $i))
+
+        if $with_default
+            push($selectors, ".%s.dist-%s" % (unquote($class_name) $i))
+
+        if $columns % $i == 0
+            {join(",", $selectors)}
+                &>*
+                    width $width

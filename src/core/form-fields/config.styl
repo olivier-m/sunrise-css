@@ -1,0 +1,19 @@
+@require "../base/config"
+
+$color_input_fg       ?= $color_base
+$color_input_bg       ?= $color_base_bg
+$color_input_border   ?= $color_gray_light
+$color_input_shadow   ?= #000
+$color_input_focus_bd ?= lighten($color_primary, 20%)
+$color_input_focus_bg ?= $color_input_bg
+
+$color_important      ?= $color_danger
+
+$color_input_placeholder ?= lighten($color_input_fg, 60%)
+$color_input_disabled_bg ?= darken($color_input_bg, 10%)
+$color_input_disabled_fg ?= lighten($color_input_fg, 30%)
+
+$color_range_track ?= $color_gray_light
+$color_range_thumb ?= $color_primary
+
+$color_select_bg   ?= lighten($color_gray_lighter, 10%)

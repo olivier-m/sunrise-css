@@ -1,0 +1,53 @@
+@require "./config"
+
+.badge
+.pill
+    display inline-block
+    white-space nowrap
+    vertical-align baseline
+    padding 0 .7rem
+    background-color $color_badge
+    color $color_badge_fg
+
+.badge
+    padding 0 .5rem
+    border-radius 3px
+
+.pill
+    padding-left 1rem
+    padding-right @padding-left
+    border-radius 1em
+
+
+for $x in $badge_color_list
+    .badge.{$x}
+    .pill.{$x}
+        color_bg($badge_color_list[$x])
+
+    a.badge.{$x}
+    a.pill.{$x}
+        &:visited
+            color_bg($badge_color_list[$x])
+
+        &:hover, &:focus
+            color_bg(darken($badge_color_list[$x], 20%))
+
+a.badge
+a.pill
+    &:visited
+        background-color $color_badge
+        color $color_badge_fg
+
+    &:hover, &:focus
+        color_bg(darken($color_badge, 20%))
+
+button
+a.button
+    .badge
+    .pill
+        background-color $color_base_bg
+        color $color_base
+
+        for $x in $badge_color_list
+            &.{$x}
+                color $badge_color_list[$x]

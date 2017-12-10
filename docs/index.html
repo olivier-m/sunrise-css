@@ -1,0 +1,9 @@
+{% extends "ext/base.html" %}
+
+{% block page_title %}Welcome - {{ super() }}{% endblock page_title %}
+
+{% block content %}
+
+{% markdown "../README.md" %}
+
+{% endblock content %}

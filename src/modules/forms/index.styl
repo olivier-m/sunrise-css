@@ -1,0 +1,219 @@
+@require "../../core/buttons"
+@require "../../core/form-fields"
+@require "../messages/extends"
+@require "./config"
+
+
+// Form layout
+// ============================================================================
+$field_solid_padding
+    margin 0 0 1px
+    padding unit($line_height / 2, "em")
+
+// Required field label
+.required label, label.required
+    font-weight bold
+
+    &:after
+        content " *"
+        color $color_important_text
+
+//
+// Form field
+//
+$form_field_list_ul
+    list-style none
+    margin 0
+    padding 0
+
+
+.form-field
+    margin unit($line_height / 2 - .4, "em") 0
+    padding .4em 0
+
+    .field-content>ul
+        @extend $form_field_list_ul
+
+    .hint
+        color $color_hint
+        font-style italic
+        font-size $size_hint
+        margin-left .5em
+        display inline-block
+
+    // Solid (with background) field
+    &.solid
+    / .solid &
+        @extend $field_solid_padding
+        background-color $color_field_bg
+
+    // Stacked on one line
+    &.inline .field-content li
+        display inline
+
+    // Regrouped fields
+    &.regrouped
+        .field-content
+            &>div
+                display inline-block
+                vertical-align top
+
+                &>ul
+                    @extend $form_field_list_ul
+
+                &>ul, &>ul li
+                    display inline
+
+        .hint
+            display block
+            margin-left 0
+
+    // Horizontal (float) field
+    &.horizontal
+    / .horizontal &
+        clear left
+        overflow hidden
+
+        &>label
+            display block
+            width $horizontal_label_width
+            float left
+            margin 0
+            padding 6px 0
+            line-height normal
+
+            +media_webkit()
+                padding 4px 0 8px
+
+        .field-content
+            margin 0 0 0 $horizontal_label_width + 1em
+            padding-right 5px
+
+            textarea
+                margin-top 0
+
+            &>ul
+                margin-top 5px
+                line-height normal
+
+            // Webkit hack
+            +media_webkit()
+                margin-top -3px
+
+                textarea
+                    margin-top 3px
+
+                &>ul
+                    margin-top 8px
+
+    // Responsive horizontal
+    +media_mobile()
+        &.horizontal
+            &>label
+                float none
+                width auto
+                padding auto
+
+            .field-content
+                margin-left 0
+                margin-top 0
+
+                ul, textarea
+                    margin-top 0
+
+            .hint
+                margin-left 0
+
+            &.with-errors .errorlist
+                margin-left 0
+
+//
+// Table form
+//
+.form-table
+    border 1px solid darken($color_table_label_bg, 10%)
+
+    th, td
+        border 0
+
+    thead th
+        background-color $color_table_label_bg
+        color contrasted($color_table_label_bg)
+        padding .5em
+
+    tbody td
+        vertical-align bottom
+        padding .5em
+
+    tbody tr:nth-child(even) td:not(.with-errors)
+        background-color lighten($color_table_label_bg, 50%)
+
+    input[type=checkbox], input[type=radio]
+        margin-bottom 6px
+
+
+//
+// Errors
+//
+.form-field
+    &.with-errors
+        background-color $color_important_bg
+
+        padding unit($line_height / 2, "em")
+        margin-left unquote("-" + @padding)
+        margin-right unquote("-" + @padding)
+
+        &.solid
+        .solid &
+            @extend $field_solid_padding
+
+        {$input_widgets}
+            @extend $base_input:invalid
+
+            &:focus
+                @extend $base_input:focus:invalid
+
+    .errorlist
+        @extend $reset
+        @extend $reset_list
+        color $color_important_text
+        font-weight bold
+
+    &.horizontal .errorlist
+        // Offset errorlist on horizontal fields
+        margin-left $horizontal_label_width + 1em
+
+    &.horizontal.regrouped .errorlist
+        margin 0
+
+
+.form-errors
+    @extend $message_base
+    @extend $message_base.error
+
+
+.input-group
+    display inline-table
+    vertical-align middle
+
+    / html & > *
+        display table-cell
+        border-right-width 0
+        border-radius 0
+        margin 0
+
+    & > *:first-child
+        border-radius 3px 0 0 3px
+
+    & > *:last-child
+        border-right-width 1px
+        border-radius 0 3px 3px 0
+
+    & > .group-addon
+        padding-left 7px
+        padding-right 7px
+
+    & > .group-addon
+    & > .button
+        border 1px solid darken($btn_default_bg1, 10%)
+        border-right-width 0

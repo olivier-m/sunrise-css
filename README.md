@@ -1,9 +1,11 @@
 # Sunrise CSS
 
+
 ## What is it?
 
 Sunrise is a lightweight CSS framework providing rules for basic needs. It is not a full
 featured framework with shiny widgets, only a starter kit with useful tools.
+
 
 ## What's in it?
 
@@ -14,9 +16,11 @@ Sunrise provides the following CSS components:
 - A responsive grid system (fixed and fluid) and an automated distribution grid
 - Beautiful forms
 
+
 ## Install it
 
 Add `sunrise.css` to your project/page and you're good to go.
+
 
 ## Hack it
 
@@ -24,13 +28,12 @@ Clone Sunrise repository and then enter the following commands (you need nodeJS 
 
 ```
 npm install
-grunt runserver
+npm run dev
 ```
-
 
 You can now visit `http://localhost:7000/`, edit files in `src/` and save your changes.
 
-Sunrise uses the amazing [Stylus](https://learnboost.github.io/stylus/) CSS preprocessor.
+Sunrise uses the extraordinary [Stylus](https://learnboost.github.io/stylus/) CSS preprocessor.
 
 
 ## Credits

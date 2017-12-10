@@ -1,0 +1,334 @@
+{% extends "ext/base.html" %}
+
+{% macro field_label(field) %}
+<label for="{{ field.id }}" {% if field.required %}class="required"{% endif %}>{{ field.label }}</label>
+{% endmacro %}
+
+{% macro field_errors(errors) %}
+{% if errors %}
+<ul class="errorlist">
+  {% for error in errors %}
+    <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{% macro form_field(field, options) %}
+<div class="form-field{% if options.wrapper_class %} {{ options.wrapper_class }}{% endif %}{% if field.required %} required{% endif %}{% if field.errors %} with-errors{% endif %}">
+  {{ field_errors(field.errors) }}
+  {% if not options.checkbox %}{{ field_label(field) }}{% endif %}
+  <div class="field-content">
+    {{ field.html|safe }} {% if options.checkbox %}{{ field_label(field) }}{% endif %}
+    {% if field.help_text %}<span class="hint">{{ field.help_text }}</span>{% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+
+{% block page_title %}Forms - {{ super() }}{% endblock page_title %}
+
+{% block content %}
+<h1>Forms</h1>
+
+
+<h2>Basic layout</h2>
+
+<h3>Basic input</h3>
+{% codesample %}
+<div class="form-field">
+  <label for="id_name">Your name</label>
+  <div class="field-content">
+    <input type="text" name="name" id="id_name" size="30">
+  </div>
+</div>
+<div class="form-field">
+  <label for="id_text">Your text</label>
+  <div class="field-content">
+    <textarea name="text" id="id_text" cols="30" rows="4"></textarea>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Checkboxes and radio buttons</h3>
+{% codesample %}
+<div class="form-field">
+  <div class="field-content">
+    <input type="checkbox" name="check1" id="id_check1" value="1">
+    <label for="id_check1">Please check this</label>
+  </div>
+</div>
+{% endcodesample %}
+
+{% codesample %}
+<div class="form-field">
+  <label>Choices</label>
+  <div class="field-content">
+    <ul>
+      <li>
+        <input type="radio" name="radio" id="id_radioA">
+        <label for="id_radioA">Cats</label>
+      </li>
+      <li>
+        <input type="radio" name="radio" id="id_radioB">
+        <label for="id_radioB">Dogs</label>
+      </li>
+      <li>
+        <input type="radio" name="radio" id="id_radioC">
+        <label for="id_radioC">Raven</label>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Inline checkboxes and radio buttons</h3>
+{% codesample %}
+<div class="form-field inline">
+  <label>Choices</label>
+  <div class="field-content">
+    <ul>
+      <li>
+        <input type="radio" name="radio" id="id_radio2A">
+        <label for="id_radio2A">Cats</label>
+      </li>
+      <li>
+        <input type="radio" name="radio" id="id_radio2C">
+        <label for="id_radio2C">Raven</label>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Regrouped fields</h3>
+{% codesample %}
+<div class="form-field regrouped">
+  <label>Grouped fields</label>
+  <div class="field-content">
+    <div>
+      <label for="id_select">Choices</label>
+      <select name="select" id="id_select">
+        <option value="1">Cats</option>
+        <option value="2">Dogs</option>
+        <option value="3">I don't care, really</option>
+      </select>
+    </div>
+    <div>
+      <label for="id_name2">Name</label>
+      <input type="text" name="name2" id="id_name2">
+    </div>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Horizontal field</h3>
+{% codesample %}
+<div class="form-field horizontal">
+  <label for="id_email">E-mail</label>
+  <div class="field-content">
+    <input type="email" name="email" size="30" id="id_email">
+  </div>
+</div>
+<div class="form-field horizontal">
+  <label for="id_site">Website</label>
+  <div class="field-content">
+    <input type="url" name="site" size="30" id="id_site" placeholder="http://">
+  </div>
+</div>
+<div class="form-field horizontal">
+  <label for="id_text2">Notes</label>
+  <div class="field-content">
+    <textarea name="text2" id="id_text2" cols="50" rows="3"></textarea>
+  </div>
+</div>
+<div class="form-field horizontal">
+  <div class="field-content">
+    <input type="checkbox" name="check2" id="id_check2" value="1">
+    <label for="id_check2">Are you sure?</label>
+  </div>
+</div>
+{% endcodesample %}
+
+<p><code>horizontal</code> class can also be set on any <code>form-field</code> parent
+(eg. a form).</p>
+
+<p>You can, of course, combine horizontal and regrouped:</p>
+
+{% codesample %}
+<div class="form-field horizontal regrouped">
+  <label>Grouped fields</label>
+  <div class="field-content">
+    <div>
+      <label for="id_name3">Firstname</label>
+      <input type="text" name="name3" id="id_name3" size="15">
+    </div>
+    <div>
+      <label for="id_name4">Last name</label>
+      <input type="text" name="name4" id="id_name4" size="15">
+    </div>
+  </div>
+</div>
+{% endcodesample %}
+
+
+<h2>Hints, classes, bonus...</h2>
+
+<h3>Required field</h3>
+
+<p>Add a <code>required</code> class to <code>label</code> or <code>div.form-field</code></p>
+
+{% codesample %}
+<div class="form-field">
+  <!-- Add a "required" class to label to indicate required fields -->
+  <label for="id_name5" class="required">Name</label>
+  <div class="field-content">
+    <input type="text" name="name5" id="id_name5">
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Full width widget</h3>
+
+<p>Add a <code>max</code> class to <code>input</code> or <code>textarea</code> to maximize
+the widget width.</p>
+
+{% codesample %}
+<div class="form-field">
+  <label for="id_name6">Name</label>
+  <div class="field-content">
+    <!-- Add a "max" class to enlarge field -->
+    <input type="text" class="max" name="name6" id="id_name6">
+  </div>
+</div>
+<!-- "max" class works with horizontal fields too -->
+<div class="form-field horizontal">
+  <label for="id_text3">Notes</label>
+  <div class="field-content">
+    <textarea class="max" name="text3" id="id_text3" cols="30" rows="3"></textarea>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Help text</h3>
+
+<p>Add a <code>p</code> element with <code>hint</code> class after the field widget.</p>
+
+{% codesample %}
+<div class="form-field horizontal">
+  <label for="id_name7">Name (again)</label>
+  <div class="field-content">
+    <input type="text" name="name7" id="id_name7">
+    <!-- help text using p.hint -->
+    <p class="hint">Help text goes here</p>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Disabled field</h3>
+
+{% codesample %}
+<div class="form-field horizontal">
+  <label for="id_size">Size</label>
+  <div class="field-content">
+    <input type="text" name="size" id="id_size" value="don't change!" disabled>
+  </div>
+</div>
+{% endcodesample %}
+
+<h3>Padded field with background</h3>
+{% codesample %}
+<div class="form-field horizontal solid">
+  <label for="id_color">Color</label>
+  <div class="field-content">
+    <input type="text" name="color" id="id_color">
+  </div>
+</div>
+{% endcodesample %}
+
+<h2>Errors</h2>
+
+{% codesample %}
+<div class="form-field with-errors required">
+  <ul class="errorlist">
+    <li>This field is required</li>
+  </ul>
+  <label for="id_name8">E-mail</label>
+  <div class="field-content">
+    <input type="email" name="name8" id="id_name8">
+  </div>
+</div>
+{% endcodesample %}
+
+
+<h2>Table form</h2>
+{% codesample %}
+<table class="form-table">
+  <thead>
+    <tr>
+      <th><label for="id_f1">Field 1</label></th>
+      <th><label for="id_f2">Field 2</label></th>
+      <th><label for="id_f3">Field 3</label></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" id="id_f1" name="f1"></td>
+      <td><input type="text" id="id_f2" name="f2"></td>
+      <td><input type="text" id="id_f3" name="f3"></td>
+    </tr>
+  </tbody>
+</table>
+{% endcodesample %}
+
+
+<h2>Large inputs</h2>
+
+{% codesample %}
+<p><input type="text" class="input-lg" /></p>
+<p><input type="submit" class="input-lg" /></p>
+{% endcodesample %}
+
+
+<h2>Input groups</h2>
+
+{% codesample %}
+<span class="input-group">
+  <input type="text" />
+  <button type="submit">Go!</button>
+</span>
+
+<span class="input-group">
+  <span class="group-addon">Addon</span>
+  <input type="text" />
+  <button type="submit">@</button>
+</span>
+{% endcodesample %}
+
+{% codesample %}
+<span class="input-group">
+  <input type="text" />
+  <a class="button success" href="">$</a>
+</span>
+
+<span class="input-group">
+  <label class="group-addon" for="id_input">Label</label>
+  <input type="text" id="id_input" />
+  <a class="button success" href="">€</a>
+</span>
+{% endcodesample %}
+
+{% codesample %}
+<span class="input-group">
+  <button>Button 1</button>
+  <button>Button 3</button>
+  <button>Button 2</button>
+</span>
+
+<span class="input-group">
+  <input type="text" placeholder="Field 1" />
+  <input type="password" placeholder="Field 2" />
+</span>
+{% endcodesample %}
+
+{% endblock content %}

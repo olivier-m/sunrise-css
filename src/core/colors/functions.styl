@@ -1,0 +1,11 @@
+@require "../base/functions"
+
+//
+// Set two contract aware color classes (foreground and background)
+//
+color_classes($name, $color)
+    .color-{$name}
+        color_fg($color)
+
+    .color-{$name}-bg
+        color_bg($color)

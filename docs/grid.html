@@ -1,0 +1,79 @@
+{% extends "ext/base.html" %}
+
+{% set columns = [
+    [1, 11],
+    [2, 10],
+    [3, 9],
+    [4, 8],
+    [5, 7],
+    [6, 6],
+    [12],
+    [4, 4, 4],
+    [3, 6, 3]
+] %}
+
+{# default, tablet, mobile, wide #}
+{% set distributed = [
+  [2, 2, 1, 3],
+  [3, 3, 2, 6],
+  [4, 3, 2, 6],
+  [6, 4, 3, 12],
+  [12, 6, 4, 12]
+] %}
+
+{% block page_title %}Grid - {{ super() }}{% endblock page_title %}
+
+{% block content %}
+<h1>Grid</h1>
+
+<h2>Fixed, responsive page grid</h2>
+
+<pre class="example">{% filter highlight('html') %}
+<div class="gs-fixed">
+  <div class="unit-3"></div>
+  <div class="unit-9"></div>
+</div>
+{% endfilter %}</pre>
+
+<h2>Columns</h2>
+
+<div class="grider-sample">
+{% codesample "noblock" %}
+{%- for cols in columns %}
+<div class="gs-fluid">
+{%- for index in cols %}
+  <div class="unit-{{ index }} unit-xs-6">
+    <div class="bg-{{ index }}">{{ index }}</div>
+  </div>
+{% endfor -%}
+</div>
+{% endfor %}
+{% endcodesample %}
+</div>
+
+<h2>Automatic distribution</h2>
+
+<div class="grider-sample">
+{%- for cols in distributed %}
+{% codesample "noblock" %}
+<div class="gs-dist dist-{{ cols[0] }} dist-sm-{{ cols[1] }} dist-xs-{{ cols[2] }} dist-lg-{{ cols[3] }}">
+{%- for i,v in [0,0,0,0,0,0,0,0,0,0,0,0] %}
+  <div><div class="bg-{{ loop.index }}">{{ loop.index }}</div></div>
+{% endfor -%}
+</div>
+{% endcodesample %}
+{% endfor %}
+</div>
+
+<h2>Push / pull</h2>
+<div class="grider-sample">
+{% codesample "noblock" %}
+<div class="gs-fluid">
+  <div class="unit-10 push-2"><div class="bg-1">1</div></div>
+  <div class="unit-4 push-3 pull-3 push-xs-2 pull-xs-4"><div class="bg-2">1</div></div>
+  <div class="unit-2"><div class="bg-3">1</div></div>
+</div>
+{% endcodesample %}
+</div>
+
+{% endblock content %}

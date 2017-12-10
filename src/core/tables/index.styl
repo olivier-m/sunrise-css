@@ -1,0 +1,35 @@
+@require "../base/functions"
+@require "../base/extends"
+
+table
+    max-width 100%
+    table-layout fixed
+    border-collapse collapse
+    border-spacing 0
+
+caption
+    color $color_gray
+    font-style italic
+    margin-bottom 0
+
+td, th
+    padding remsize(get_line_height() / 2 - .5) remsize(get_line_height() / 2)
+    vertical-align top
+    min-width 2em
+    cursor default
+    text-align left
+    border 1px solid $color_gray_light
+
+th
+    font-weight bold
+    background-color $color_gray_lighter
+
+thead tr:last-child th
+    border-bottom-color $color_gray
+
+tfoot
+    td, th
+        font-style italic
+
+table.reset
+    @extend $reset_table

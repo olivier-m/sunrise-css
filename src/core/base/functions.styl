@@ -1,0 +1,199 @@
+//
+// Base functions
+//
+
+// Color functions
+// ============================================================================
+
+// Pick a good contrasted color
+contrasted($color, $t=#fff, $b=#000)
+    $ct = contrast($t, $color)
+    $cb = contrast($b, $color)
+    if ($ct.ratio > $cb.ratio)
+        return $t
+    return $b
+
+// Set foreground (text) color
+color_fg($color)
+    color $color
+
+// Set background color and contrasted text color
+color_bg($color)
+    background-color $color
+    color contrasted($color)
+
+// Fade color (RGBA)
+fade($color, $value)
+    return rgba($color, $value)
+
+
+// Font functions
+// ============================================================================
+
+// Generate @font-face block
+font_face($familly, $local=null, $woff=null, $ttf=null, $eot=null)
+    @font-face
+        font-family $familly
+        if $eot
+            src url($eot)
+
+        $src = ()
+        $font_url = "url(%s) format(%s)"
+        if $local
+            push($src, unquote("local(%s)" % $local))
+
+        if $eot
+            push($src, unquote(s($font_url, $eot + "?#iefix", "embedded-opentype")))
+
+        if $woff
+            push($src, unquote(s($font_url, $woff, "woff")))
+
+        if $ttf
+            push($src, unquote(s($font_url, $ttf, "truetype")))
+
+        src unquote(join(",\n         ", $src))
+
+        {block}
+
+
+// Media queries
+// ============================================================================
+
+// Webkit target (for hacks)
+media_webkit()
+    @media screen and (-webkit-min-device-pixel-ratio:0)
+        {block}
+
+
+// Remove a unit from a size (1 for pixels, 0.1 for other units)
+size_stop($size)
+    if unit($size) is "px"
+        return $size - 1
+    else
+        return $size - .1
+
+
+// Mobile phones
+media_mobile()
+    @media only screen and (max-width: size_stop($screen_sm))
+        {block}
+
+// Tablets
+media_tablet()
+    @media only screen and (min-width: $screen_sm) and (max-width: size_stop($screen_md))
+        {block}
+
+// Large screen
+media_wide()
+    @media only screen and (min-width: $screen_lg)
+        {block}
+
+
+// Sizing
+// ============================================================================
+
+// Returns pixel size for rem or pixel value
+get_px($size)
+    if unit($size) == "px"
+        return $size
+    if unit($size) == "rem"
+        return unit($size * 10, "px")
+
+// Returns a rem size for pixel or rem value
+get_rem($size)
+    if unit($size) is "rem"
+        return $size
+    if unit($size) is "px"
+        return unit($size / 10, "rem")
+
+// Set rem size
+remsize(args...)
+    if not current-property
+        error("remsize() must be used within a property")
+
+    $res = ()
+    $_args = ()
+
+    -f(x)
+        if length(x) > 1
+            for _x in x
+                -f(_x)
+        else
+            push($_args, x)
+
+    for $arg in arguments
+        -f($arg)
+
+    for $arg in $_args
+        if $arg is a "unit" and (unit($arg) == "px" or unit($arg) == "rem")
+            push($res, get_rem($arg))
+        else
+            push($res, $arg)
+
+    $res
+
+// Returns base line height
+get_line_height()
+    return get_px($base_font_size) * $line_height
+
+// Add a fixed bottom margin on block
+flow_block($font_size=$base_font_size)
+    vertical_flow($font_size)
+    $lh = get_line_height()
+    margin 0 0 get_rem($lh)
+
+// Add padding values with optional border width (in px)
+padded_box($border=0)
+    $p = get_line_height()
+    padding remsize(get_line_height() - $border) remsize(get_line_height())
+
+// Add computed line-height and top position to put content on baseline
+vertical_flow($font_size=$base_font_size)
+    $min_line_height = .85
+    $font_size = get_px($font_size)
+
+    // Base line height
+    $line = get_line_height()
+
+    // Lines covered
+    $covers = unit(ceil($font_size / $line), "")
+
+    // See if we can use one line less
+    if $covers > 1 and ($covers - 1) * $line / $font_size >= $min_line_height
+        $covers = $covers - 1
+
+    // Set line-height
+    $lh = unit(round($covers * $line / $font_size, 5), "")
+    if $lh is not $line_height
+        line-height $lh
+
+    // Move block on baseline
+    if $font_size > $line and $line * $covers != $font_size
+        $pxtop = ($line * $covers - $font_size) / $covers - 1px
+        position relative
+        top remsize($pxtop)
+
+
+// Misc functions
+// ============================================================================
+
+// Clearfix
+clearfix()
+    zoom 1
+
+    &:after, &:before
+        content " "
+        display table
+
+    &:after
+        clear both
+
+// Generates a badge with correct sizing
+badge($background_color, $color=null, $border_color=null)
+    background-color $background_color
+    color $color is not null ? $color : contrasted(@background-color)
+    if $border_color
+        border 1px solid $border_color
+
+    padding $border_color ? (1px 3px) : (2px 4px)
+    border-radius 3px

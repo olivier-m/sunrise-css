@@ -1,0 +1,133 @@
+{% extends "ext/base.html" %}
+
+{% block page_title %}Welcome - {{ super() }}{% endblock page_title %}
+
+{% block content %}
+<h1>Tables</h1>
+
+<h2>Basic table</h2>
+
+{% codesample %}
+<table>
+  <tr>
+    <th>Clara Barton</th>
+    <td>1821</td>
+    <td>U.S.</td>
+  </tr>
+  <tr>
+    <th>Marie Curie</td>
+    <td>1867</td>
+    <td>Kingdom of Poland</td>
+  </tr>
+  <tr>
+    <th>Grace Hopper</th>
+    <td>1906</td>
+    <td>U.S.</td>
+  </tr>
+</table>
+{% endcodesample %}
+
+
+<h2>Fancy table</h2>
+
+<p>A table with <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>,
+<code>&lt;tbody&gt;</code> and <code>&lt;tfoot&gt;</code> and a <code>.max</code> class.</p>
+
+{% codesample %}
+<table class="max">
+  <caption>Great scientists</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of birth</th>
+      <th>Country of birth</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Footer</td>
+      <td>Footer</td>
+      <td>Footer</td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>Isaac Newton</td>
+      <td>1643</td>
+      <td>England</td>
+    </tr>
+    <tr>
+      <td>Albert Einstein</td>
+      <td>1879</td>
+      <td>German Empire</td>
+    </tr>
+    <tr>
+      <td>Stephen Hawking</td>
+      <td>1942</td>
+      <td>England</td>
+    </tr>
+  </tbody>
+</table>
+{% endcodesample %}
+
+<h2>Reset table</h2>
+
+<p>Adding a <code>.reset</code> class to a table remove all formatting.</p>
+
+{% codesample %}
+<table class="reset">
+  <tr>
+    <th>Clara Barton</th>
+    <td>1821</td>
+    <td>U.S.</td>
+  </tr>
+  <tr>
+    <th>Marie Curie</td>
+    <td>1867</td>
+    <td>Kingdom of Poland</td>
+  </tr>
+  <tr>
+    <th>Grace Hopper</th>
+    <td>1906</td>
+    <td>U.S.</td>
+  </tr>
+</table>
+{% endcodesample %}
+
+{% codesample %}
+<table class="max reset">
+  <caption>Great scientists</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of birth</th>
+      <th>Country of birth</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Footer</td>
+      <td>Footer</td>
+      <td>Footer</td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>Isaac Newton</td>
+      <td>1643</td>
+      <td>England</td>
+    </tr>
+    <tr>
+      <td>Albert Einstein</td>
+      <td>1879</td>
+      <td>German Empire</td>
+    </tr>
+    <tr>
+      <td>Stephen Hawking</td>
+      <td>1942</td>
+      <td>England</td>
+    </tr>
+  </tbody>
+</table>
+{% endcodesample %}
+{% endblock content %}

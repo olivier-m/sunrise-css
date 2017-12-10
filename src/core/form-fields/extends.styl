@@ -1,0 +1,28 @@
+@require "../base/config"
+@require "./config"
+
+$base_input
+    font-family $font_stack_common
+    font-size 1em
+    border 1px solid $color_input_border
+    background-color $color_input_bg
+    padding .5rem .7rem
+    line-height normal
+    border-radius 3px
+    box-shadow 0 1px 1px fade($color_input_shadow, .2) inset
+    transition box-shadow .3s, border-color .3s
+
+    &:hover, &:focus
+        border-color $color_input_focus_bd
+
+    &:focus
+        outline 0
+        background-color $color_input_focus_bg
+        box-shadow @box-shadow, 0 0 3px fade($color_input_focus_bd, .5)
+
+    &:invalid
+        border-color $color_important
+        box-shadow @box-shadow
+
+    &:focus:invalid
+        box-shadow @box-shadow, 0 0 3px fade($color_important, .5)

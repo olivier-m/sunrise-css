@@ -1,27 +1,68 @@
 {
-  "name": "Sunrise",
   "version": "0.9.0",
-  "description": "CSS Framework",
-  "license": "FreeBSD",
+  "name": "sunrise-css",
+  "description": "Minimalistic CSS Framework focused on good typography",
+  "keywords": [
+    "css",
+    "framework",
+    "stylus",
+    "typography"
+  ],
+  "homepage": "https://github.com/olivier-m/sunrise-css",
+  "bugs": {
+    "url": "https://github.com/olivier-m/sunrise-css/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olivier-m/sunrise.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Olivier Meunier",
     "email": "olivier@neokraft.net"
   },
-  "repository": "https://github.com/olivier-m/sunrise.git",
+  "files": [
+    "README.md",
+    "src"
+  ],
+  "main": "src/sunrise.styl",
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-autoprefixer": "^2.2.0",
-    "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-connect": "~0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-stylus": "^0.20.0",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-csso": "^0.7.0",
-    "grunt-swig2": "^0.2.0",
-    "highlight.js": "^8.4.0",
-    "jquery": "^1.11.2",
-    "js-beautify": "^1.5.4",
-    "velocity-animate": "^1.2.1"
-  }
+    "argparse": "^1.0.9",
+    "autoprefixer": "^7.2.2",
+    "browser-sync": "^2.18.13",
+    "css": "^2.2.1",
+    "csso": "^3.4.0",
+    "glob": "^7.1.2",
+    "highlight.js": "^9.12.0",
+    "jquery": "^3.2.1",
+    "js-beautify": "^1.6.14",
+    "markdown-it": "^8.3.1",
+    "normalize.css": "^7.0.0",
+    "npm-run-all": "^4.0.2",
+    "nunjucks": "^3.0.0",
+    "onchange": "^3.3.0",
+    "postcss": "^6.0.14",
+    "shelljs": "^0.7.7",
+    "shx": "^0.2.2",
+    "stylint": "^1.5.9",
+    "stylus": "^0.54.5"
+  },
+  "scripts": {
+    "check": "node bin/check-files.js ./src",
+    "clean:dist": "shx rm -rf dist",
+    "clean": "run-s clean:dist",
+    "dev": "run-s docs; run-p serve:docs watch:docs:html watch:docs:css watch:docs:assets",
+    "css": "node bin/stylus.js -m src/sunrise.styl dist/sunrise.css",
+    "dist": "run-s clean check lint css docs",
+    "docs:html": "node bin/templates.js docs dist/docs",
+    "docs:css": "node bin/stylus.js docs/styl/docs.styl dist/docs/css/docs.css",
+    "docs:assets": "shx mkdir -p dist/docs/assets; shx cp -u docs/assets/* node_modules/jquery/dist/jquery.slim.js dist/docs/assets/",
+    "docs": "run-s docs:html docs:css docs:assets",
+    "lint": "stylint ./src",
+    "serve:docs": "browser-sync start --server ./dist/docs --files ./dist/docs --port 7000 --no-open",
+    "watch:docs:html": "onchange ./README.md ./docs/*.html ./docs/**/*.html -- run-s docs:html",
+    "watch:docs:css": "onchange ./src ./docs/styl -- run-s docs:css",
+    "watch:docs:assets": "onchange ./docs/assets -- run-s docs:assets"
+  },
+  "dependencies": {}
 }

@@ -1,0 +1,90 @@
+@require "../../core/base/extends"
+@require "./config"
+@require "./functions"
+
+//
+// Base grid system rules
+//
+.gs-fixed
+    @extend $clearfix
+    margin 0 auto
+
+.gs-fluid
+    @extend $clearfix
+    gs_pull_gutters()
+
+.gs-column
+    gs_col_gutters()
+
+.gs-fixed>[class*=" unit-"], .gs-fixed>[class^="unit-"]
+.gs-fluid>[class*=" unit-"], .gs-fluid>[class^="unit-"]
+    display inline-block
+    position relative
+    min-height 1px
+    margin 0
+    float left
+    gs_col_gutters()
+
+.gs-dist
+    @extend $clearfix
+    gs_pull_gutters()
+
+    letter-spacing -1em
+    word-spacing -1em
+
+    & > *
+        display inline-block
+        vertical-align top
+        margin 0
+        letter-spacing normal
+        word-spacing normal
+        gs_col_gutters()
+
+    :root &
+        font-size 0px
+        text-justify distribute-all-lines
+
+        & > *
+            font-size remsize($base_font_size)
+
+
+//
+// Default desktop grid
+//
+gs_fixed_cols($grid_columns, $screen_md * 16 / $base_font_size, "gs-fixed", "md")
+gs_fluid_cols($division_columns, "gs-fluid", "md", true)
+gs_dist_cols($distributed_columns, "gs-dist", "md", true)
+
+//
+// Wide screen grid
+//
++media_wide()
+    gs_fixed_cols($grid_columns, $screen_lg * 16 / $base_font_size, "gs-fixed", "lg")
+    gs_fluid_cols($division_columns, "gs-fluid", "lg")
+    gs_dist_cols($distributed_columns, "gs-dist", "lg")
+
+//
+// Tablet grid
+//
++media_tablet()
+    gs_fixed_cols($grid_columns, $screen_sm * 16 / $base_font_size, "gs-fixed", "sm")
+    gs_fluid_cols($division_columns, "gs-fluid", "sm")
+    gs_dist_cols($distributed_columns, "gs-dist", "sm")
+
+//
+// Mobile grid
+//
++media_mobile()
+    // Default (unprefixed) gs-fixed selectors
+    $selectors = (".gs-fixed")
+    for $i in 1..$grid_columns
+        push($selectors, ".gs-fixed>.unit-%s" % $i)
+
+    {join(",", $selectors)}
+        width 100%
+
+    // gs-fixed with "xs" prefix is fluid
+    gs_fluid_cols($grid_columns, "gs-fixed", "xs")
+
+    gs_fluid_cols($division_columns, "gs-fluid", "xs")
+    gs_dist_cols($distributed_columns, "gs-dist", "xs")

@@ -1,0 +1,127 @@
+{% extends "ext/base.html" %}
+
+{% macro simple_input(type, placeholder=null) %}
+<p>
+    <label for="simple_input_{{ type }}">Field type <code>{{ type }}</code></label>
+    <br />
+    <input id="simple_input_{{ type }}" type="{{ type }}"{% if placeholder %} placeholder="{{ placeholder }}"{% endif %} />
+</p>
+{% endmacro %}
+
+{% block content %}
+<h1>Fields and buttons</h1>
+
+<p>This core module provides good defaults for input fields and buttons.
+Should you need more, use the extra <code>forms</code> module.</p>
+
+<h2>Buttons</h2>
+
+<h3>Buttons</h3>
+<p>Buttons are <code>input</code> or <code>button</code> tags, and also
+<code>a</code> tags with class <code>button</code></p>
+{% codesample %}
+<p>
+    <button>Default button</button>
+    <button class="primary">Primary color</button>
+    <input type="submit" class="success" value="Success color">
+    <input type="reset" class="warning" value="Warning color">
+    <a href="#" class="button danger">Danger color</a>
+</p>
+{% endcodesample %}
+
+<h3>Disabled buttons</h3>
+{% codesample %}
+<p>
+    <button disabled>Default button</button>
+    <button disabled class="primary">Primary color</button>
+    <input disabled type="submit" class="success" value="Success color">
+    <input disabled type="reset" class="warning" value="Warning color">
+    <button disabled type="submit" class="danger">Danger color</button>
+</p>
+{% endcodesample %}
+
+<h3>Alignment</h3>
+{% codesample %}
+<p>
+    <button class="primary">Submit</button>
+    or <a href="#">cancel</a>
+</p>
+{% endcodesample %}
+
+<h2>Input fields</h2>
+
+<h3>Basic input</h3>
+{% codesample %}
+{{ simple_input("text", "some text") }}
+{{ simple_input("password") }}
+{{ simple_input("email") }}
+{{ simple_input("url", "http://") }}
+{{ simple_input("search") }}
+{{ simple_input("number") }}
+{% endcodesample %}
+
+<h3>Date and time input</h3>
+{% codesample %}
+{{ simple_input("date") }}
+{{ simple_input("time") }}
+{{ simple_input("datetime-local") }}
+{{ simple_input("month") }}
+{{ simple_input("week") }}
+{% endcodesample %}
+
+<h3>Other input types</h3>
+{% codesample %}
+{{ simple_input("color") }}
+{{ simple_input("range") }}
+{{ simple_input("file") }}
+{% endcodesample %}
+
+<h3>Textarea</h3>
+
+{% codesample %}
+<textarea cols="40" rows="5"></textarea>
+{% endcodesample %}
+
+<h3>Select</h3>
+{% codesample %}
+<p>
+    <label>Select value:
+        <select>
+            <option>Cat</option>
+            <option>Dogs</option>
+            <option>Don't care</option>
+        </select>
+    </label>
+</p>
+{% endcodesample %}
+
+<h3>Radio and checkbox</h3>
+{% codesample %}
+<p>
+    <label><input type="checkbox" name="check1" /> Value 1</label><br />
+    <label><input type="checkbox" name="check1" /> Value 2</label>
+</p>
+<p>
+    <label><input type="radio" name="radio1" /> Value 1</label><br />
+    <label><input type="radio" name="radio1" /> Value 2</label>
+</p>
+<p>
+    <label><input type="checkbox" name="check2" /> Value 1</label>
+    <label><input type="checkbox" name="check2" /> Value 2</label>
+</p>
+<p>
+    <label><input type="radio" name="radio2" /> Value 1</label>
+    <label><input type="radio" name="radio2" /> Value 2</label>
+</p>
+{% endcodesample %}
+
+<h3>Disabled fields</h3>
+{% codesample %}
+<p><input type="text" disabled /></p>
+<p><input type="checkbox" disabled /> disabled checkbox</p>
+<p><input type="radio" disabled /> disabled radio</p>
+<p><select disabled><option>option 1</option></select></p>
+{% endcodesample %}
+
+
+{% endblock %}

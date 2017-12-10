@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta charset="UTF-8" />
+  <title>{% block page_title %}Sunrise{% endblock page_title %}</title>
+  {% block viewport %}<meta name="viewport" content="width=device-width, initial-scale=1.0" />{% endblock viewport %}
+
+  {% block stylesheets %}
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+  <link rel="stylesheet" href="css/docs.css" />
+  {% endblock stylesheets %}
+  {% endblock head %}
+</head>
+
+<body>
+{% block body %}
+<div id="page">
+  <div class="offcanvas">
+    {# <a href="" class="offcanvas-toggle" data-toggle="offcanvas">☰</a> #}
+    <input type="checkbox" class="offcanvas-toggle" id="offcanvas-toggle" />
+    <label class="offcanvas-toggle" for="offcanvas-toggle">☰</label>
+    <nav id="sidebar" class="offcanvas-sidebar">
+      <ul>
+        <li><span>Documentation</span>
+          <ul>
+            <li><a href="{{ root_url }}index.html">Home</a></li>
+          </ul>
+        </li>
+        <li><span>Base modules</span>
+          <ul>
+            <li><a href="{{ root_url }}typo.html">Blocks and typography</a></li>
+            <li><a href="{{ root_url }}tables.html">Tables</a></li>
+            <li><a href="{{ root_url }}colors.html">Colors</a></li>
+            <li><a href="{{ root_url }}forms-base.html">Fields and buttons</a></li>
+          </ul>
+        </li>
+        <li><span>Extra modules</span>
+          <ul>
+            <li><a href="{{ root_url }}grid.html">Grid</a></li>
+            <li><a href="{{ root_url }}messages.html">Messages</a></li>
+            <li><a href="{{ root_url }}forms.html">Forms</a></li>
+            <li><a href="{{ root_url }}badges.html">Badges</a></li>
+            <li><a href="{{ root_url }}list-group.html">List group</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main" class="offcanvas-content">
+      {% block content %}{% endblock content %}
+    </main>
+  </div>
+</div>
+{% endblock body %}
+
+<script src="assets/jquery.slim.js"></script>
+<script src="assets/script.js"></script>
+{% block body_end %}{% endblock %}
+</body>
+</html>
