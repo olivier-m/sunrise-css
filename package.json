@@ -1,6 +1,6 @@
 {
-  "version": "0.9.0",
   "name": "sunrise-css",
+  "version": "1.0.0",
   "description": "Minimalistic CSS Framework focused on good typography",
   "keywords": [
     "css",
