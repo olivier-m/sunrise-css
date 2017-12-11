@@ -1,17 +1,17 @@
 range_slider_thumb($webkit_margin=0)
-    &::-webkit-slider-thumb
+    input[type=range]::-webkit-slider-thumb
         {block}
         -webkit-appearance none
         if $webkit_margin
             margin-top $webkit_margin
 
-    &::-moz-range-thumb
+    input[type=range]::-moz-range-thumb
         {block}
 
 range_slider_track()
-    &::-webkit-slider-runnable-track
+    input[type="range"]::-webkit-slider-runnable-track
         {block}
         -webkit-appearance none
 
-    &::-moz-range-track
+    input[type="range"]::-moz-range-track
         {block}
