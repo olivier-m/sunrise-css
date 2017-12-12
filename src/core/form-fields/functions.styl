@@ -8,10 +8,16 @@ range_slider_thumb($webkit_margin=0)
     input[type=range]::-moz-range-thumb
         {block}
 
+    input[type=range]::-ms-thumb
+        margin 0
+
 range_slider_track()
     input[type="range"]::-webkit-slider-runnable-track
         {block}
         -webkit-appearance none
 
     input[type="range"]::-moz-range-track
+        {block}
+
+    input[type=range]::-ms-track
         {block}
